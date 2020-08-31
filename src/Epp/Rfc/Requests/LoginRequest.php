@@ -1,12 +1,12 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Epp\Rfc\Requests;
 
 use DOMElement;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\ClientIdElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifierElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\CommandElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\EppElement;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\ClientIdElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\LangElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\LoginElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\NewPasswordElement;
@@ -46,11 +46,11 @@ final class LoginRequest extends Request
                     OptionsElement::render([
                         VersionElement::render([], '1.0'),
                         LangElement::render([], 'en'),
-                    ])
+                    ]),
 
                 ]),
-                ClientTransactionIdentifierElement::render([], 'ABCD-1234')
-            ])
+                ClientTransactionIdentifierElement::render([], 'ABCD-1234'),
+            ]),
         ]);
     }
 }

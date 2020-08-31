@@ -5,7 +5,6 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Elements;
 use DOMDocument;
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Document;
-use Webmozart\Assert\Assert;
 
 abstract class Element
 {
@@ -38,7 +37,7 @@ abstract class Element
      * Render the current element, then append all given children to it, and return it.
      *
      * @param array<DOMElement|null> $children
-     * @param string|null $value
+     * @param string|null            $value
      *
      * @return DOMElement
      */

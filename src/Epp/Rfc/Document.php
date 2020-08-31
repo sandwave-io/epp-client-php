@@ -18,16 +18,16 @@ class Document extends DOMDocument
     public function toString(): string
     {
         if (! $xml = $this->saveXML(null, LIBXML_NOEMPTYTAG)) {
-            throw new EppXmlException("Error while rendering XML");
+            throw new EppXmlException('Error while rendering XML');
         }
         return $xml;
     }
 
     public static function fromString(string $xml): Document
     {
-        $document = new Document;
+        $document = new Document();
         if (! $document->loadXML($xml)) {
-            throw new EppXmlException("Error while parsing XML");
+            throw new EppXmlException('Error while parsing XML');
         }
         return $document;
     }

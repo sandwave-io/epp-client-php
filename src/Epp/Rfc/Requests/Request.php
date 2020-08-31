@@ -8,8 +8,6 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Element;
 
 abstract class Request extends Document
 {
-    abstract protected function renderElements(): DOMElement;
-
     public function renderAndAppendChildren(): Request
     {
         Element::setDocument($this);
@@ -17,4 +15,6 @@ abstract class Request extends Document
         Element::resetDocument();
         return $this;
     }
+
+    abstract protected function renderElements(): DOMElement;
 }

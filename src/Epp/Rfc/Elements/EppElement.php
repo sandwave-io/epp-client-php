@@ -11,7 +11,7 @@ final class EppElement extends Element
     public static function render(array $children = [], ?string $value = null): DOMElement
     {
         $element = parent::render($children, $value);
-        $element->setAttribute('xmlns',"urn:ietf:params:xml:ns:epp-1.0");
+        $element->setAttribute('xmlns', 'urn:ietf:params:xml:ns:epp-1.0');
         return $element;
     }
 }
