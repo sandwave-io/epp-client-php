@@ -13,11 +13,29 @@ abstract class AbstractConnectionDriver
     /** @var int */
     protected $timeout = 10;
 
-    public function __construct(string $hostname, int $port, ?int $timeout = null)
-    {
+    /** @var string|null */
+    protected $localCertificatePath;
+
+    /** @var string|null */
+    protected $localCertificatePassword;
+
+    /** @var bool|null */
+    protected $allowSelfSigned;
+
+    public function __construct(
+        string $hostname,
+        int $port,
+        ?int $timeout = null,
+        ?string $localCertificatePath = null,
+        ?string $localCertificatePassword = null,
+        ?bool $allowSelfSigned = null
+    ) {
         $this->hostname = $hostname;
         $this->port = $port;
         $this->timeout = $timeout ?? $this->timeout;
+        $this->localCertificatePath = $localCertificatePath;
+        $this->localCertificatePassword = $localCertificatePassword;
+        $this->allowSelfSigned = $allowSelfSigned;
     }
 
     abstract public function connect(): bool;

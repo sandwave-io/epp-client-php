@@ -16,15 +16,6 @@ class SslConnectionDriver extends AbstractConnectionDriver
     /** @var bool */
     private $verifyPeerName;
 
-    /** @var string|null */
-    private $localCertificatePath;
-
-    /** @var string|null */
-    private $localCertificatePassword;
-
-    /** @var bool|null */
-    private $allowSelfSigned;
-
     /** @var Stream|null */
     private $stream;
 
@@ -32,21 +23,18 @@ class SslConnectionDriver extends AbstractConnectionDriver
         string $hostname,
         int $port,
         ?int $timeout = null,
-        bool $isBlocking = false,
-        bool $verifyPeer = true,
-        bool $verifyPeerName = true,
         ?string $localCertificatePath = null,
         ?string $localCertificatePassword = null,
-        ?bool $allowSelfSigned = null
+        ?bool $allowSelfSigned = null,
+        bool $isBlocking = false,
+        bool $verifyPeer = true,
+        bool $verifyPeerName = true
     ) {
         $this->isBlocking = $isBlocking;
         $this->verifyPeer = $verifyPeer;
         $this->verifyPeerName = $verifyPeerName;
-        $this->localCertificatePath = $localCertificatePath;
-        $this->localCertificatePassword = $localCertificatePassword;
-        $this->allowSelfSigned = $allowSelfSigned;
 
-        parent::__construct($hostname, $port, $timeout);
+        parent::__construct($hostname, $port, $timeout, $localCertificatePath, $localCertificatePassword, $allowSelfSigned);
     }
 
     public function connect(): bool
