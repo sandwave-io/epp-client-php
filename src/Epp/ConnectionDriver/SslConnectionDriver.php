@@ -3,6 +3,7 @@
 namespace SandwaveIo\EppClient\Epp\ConnectionDriver;
 
 use SandwaveIo\EppClient\Epp\ConnectionDriver\Support\Stream;
+use SandwaveIo\EppClient\Exceptions\ConnectException;
 
 class SslConnectionDriver extends AbstractConnectionDriver
 {
@@ -85,7 +86,20 @@ class SslConnectionDriver extends AbstractConnectionDriver
 
     public function executeRequest(string $request, string $requestId): string
     {
-        // TODO: Implement executeRequest() method.
-        return '';
+        if ($this->stream === null || $this->stream->isConnected()) {
+            throw new ConnectException("No active connection!");
+        }
+
+        $this->stream->write($request);
+
+        $response = $this->stream->read();
+
+        $tries = 0;
+        while ($response === '' && $tries < 5) {
+            $response = $this->stream->read();
+            $tries++;
+        }
+
+        return $response;
     }
 }

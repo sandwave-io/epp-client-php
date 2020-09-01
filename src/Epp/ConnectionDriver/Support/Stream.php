@@ -86,7 +86,7 @@ class Stream
         return is_resource($this->connection);
     }
 
-    private function read(bool $nonBlocking = false): string
+    public function read(bool $nonBlocking = false): string
     {
         if (! $this->isConnected()) {
             return '';
@@ -105,7 +105,7 @@ class Stream
         return $content;
     }
 
-    private function write(string $content): void
+    public function write(string $content): void
     {
         if (! $this->isConnected()) {
             return;
