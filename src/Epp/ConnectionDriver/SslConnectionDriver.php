@@ -2,13 +2,7 @@
 
 namespace SandwaveIo\EppClient\Epp\ConnectionDriver;
 
-use Hoa\File\Write;
-use SandwaveIo\EppClient\Epp\ConnectionDriver\Support\ReadBuffer;
 use SandwaveIo\EppClient\Epp\ConnectionDriver\Support\Stream;
-use SandwaveIo\EppClient\Epp\ConnectionDriver\Support\WriteBuffer;
-use SandwaveIo\EppClient\Exceptions\ConnectException;
-use SandwaveIo\EppClient\Exceptions\TimeoutException;
-use Webmozart\Assert\Assert;
 
 class SslConnectionDriver extends AbstractConnectionDriver
 {

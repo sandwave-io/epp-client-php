@@ -1,8 +1,6 @@
-<?php
-
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Epp\ConnectionDriver\Support;
-
 
 use SandwaveIo\EppClient\Exceptions\ConnectException;
 use SandwaveIo\EppClient\Exceptions\TimeoutException;
