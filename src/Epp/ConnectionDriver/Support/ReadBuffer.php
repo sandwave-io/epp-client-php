@@ -1,8 +1,6 @@
-<?php
-
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Epp\ConnectionDriver\Support;
-
 
 use SandwaveIo\EppClient\Exceptions\ConnectException;
 use SandwaveIo\EppClient\Exceptions\ReadException;
@@ -26,10 +24,11 @@ final class ReadBuffer
     private $timeoutStamp = 0;
 
     /** @var int|null */
-    private $contentLength = null;
+    private $contentLength;
 
     /**
      * ReadBuffer constructor.
+     *
      * @param resource $connection
      * @param bool     $nonBlocking
      */
@@ -52,7 +51,6 @@ final class ReadBuffer
         $read = '';
 
         while ($this->shouldRead()) {
-
             $this->assertConnectionIsAlive();
             if ($this->isTimedOut()) {
                 throw new TimeoutException();
@@ -81,11 +79,11 @@ final class ReadBuffer
                 }
             }
 
-            if($this->nonBlocking && strlen($content) < 1) {
+            if ($this->nonBlocking && strlen($content) < 1) {
                 break;
             }
 
-            if (!strlen($read)) {
+            if (! strlen($read)) {
                 usleep(100);
             }
         }
@@ -95,7 +93,7 @@ final class ReadBuffer
 
     private function readContentLength(int $bytesLeft = 4): void
     {
-        $buffer = "";
+        $buffer = '';
         $sleepTimer = new SleepTimer();
         while ($bytesLeft > 0) {
             if ($chunk = fread($this->connection, $bytesLeft)) {
@@ -132,28 +130,23 @@ final class ReadBuffer
     private function assertConnectionIsAlive(): void
     {
         if (feof($this->connection)) {
-            throw new ConnectException("Unexpected closed connection by remote host...");
+            throw new ConnectException('Unexpected closed connection by remote host...');
         }
     }
 
     private function shouldRead(): bool
     {
-        return ($this->contentLength === null || $this->contentLength > 0);
+        return $this->contentLength === null || $this->contentLength > 0;
     }
 
     private function isContentLengthUnknown(): bool
     {
-        return ($this->contentLength === null || $this->contentLength === 0);
-    }
-
-    private function isContentLengthUnknown(): bool
-    {
-        return ($this->contentLength === null || $this->contentLength === 0);
+        return $this->contentLength === null || $this->contentLength === 0;
     }
 
     private function isContentLengthKnown()
     {
-        return ($this->contentLength !== null || $this->contentLength > 0);
+        return $this->contentLength !== null || $this->contentLength > 0;
     }
 
     private function isSessionLimitExceeded(string $content)

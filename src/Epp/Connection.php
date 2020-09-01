@@ -4,7 +4,6 @@ namespace SandwaveIo\EppClient\Epp;
 
 use Psr\Log\LoggerInterface;
 use SandwaveIo\EppClient\Epp\ConnectionDriver\AbstractConnectionDriver;
-use SandwaveIo\EppClient\Epp\ConnectionDriver\SslConnectionDriver;
 use SandwaveIo\EppClient\Epp\Rfc\Document;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\Response;

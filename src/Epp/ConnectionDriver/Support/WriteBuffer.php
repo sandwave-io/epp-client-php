@@ -1,8 +1,6 @@
-<?php
-
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Epp\ConnectionDriver\Support;
-
 
 use SandwaveIo\EppClient\Exceptions\ConnectException;
 
@@ -18,8 +16,9 @@ class WriteBuffer
 
     /**
      * WriteBuffer constructor.
+     *
      * @param resource $connection
-     * @param string $content
+     * @param string   $content
      */
     public function __construct($connection, string $content = '')
     {
@@ -43,5 +42,4 @@ class WriteBuffer
         $int = pack('N', intval(strlen($content) + 4));
         return $int . $content;
     }
-
 }

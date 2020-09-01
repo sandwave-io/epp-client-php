@@ -25,7 +25,7 @@ class SslConnectionDriver extends AbstractConnectionDriver
     /** @var string|null */
     private $localCertificatePassword;
 
-    /** @var bool|null  */
+    /** @var bool|null */
     private $allowSelfSigned;
 
     /** @var resource|null */
@@ -108,7 +108,6 @@ class SslConnectionDriver extends AbstractConnectionDriver
 
         $buffer = new ReadBuffer($this->connection, $this->timeout, $nonBlocking);
         try {
-
             $content = $buffer->readPackage();
         } catch (TimeoutException $e) {
             return '';
