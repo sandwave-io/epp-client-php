@@ -3,18 +3,22 @@
 namespace SandwaveIo\EppClient\Epp\Rfc\Requests;
 
 use DOMElement;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifierElement;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\CommandElement;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\EppElement;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\ClientIdElement;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\LangElement;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\LoginElement;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\NewPasswordElement;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\OptionsElement;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\PasswordElement;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\VersionElement;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\ClientId;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\ExtensionURI;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\Lang;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\Login;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\NewPassword;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\ObjectURI;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\Options;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\Password;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\ServiceExtension;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\Services;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\Version;
 
-final class LoginRequest extends Request
+class LoginRequest extends Request
 {
     /** @var string */
     private $username;
@@ -25,32 +29,58 @@ final class LoginRequest extends Request
     /** @var string|null */
     private $newPassword;
 
-    public function __construct(string $username, string $password, ?string $newPassword = null)
+    /** @var array<string> */
+    private $extensions;
+
+    public function __construct(string $username, string $password, ?string $newPassword = null, array $extensions = [], ?string $clientTransactionIdentifier = null)
     {
-        parent::__construct();
+        parent::__construct($clientTransactionIdentifier);
+
         $this->username = $username;
         $this->password = $password;
         $this->newPassword = $newPassword;
+        $this->extensions = $extensions;
     }
 
     protected function renderElements(): DOMElement
     {
-        return EppElement::render([
-            CommandElement::render([
-                LoginElement::render([
+        return Epp::render([
+            Command::render([
+                Login::render([
 
-                    ClientIdElement::render([], $this->username),
-                    PasswordElement::render([], $this->password),
-                    $this->newPassword ? NewPasswordElement::render([], $this->newPassword) : null,
+                    ClientId::render([], $this->username),
+                    Password::render([], $this->password),
+                    $this->newPassword ? NewPassword::render([], $this->newPassword) : null,
 
-                    OptionsElement::render([
-                        VersionElement::render([], '1.0'),
-                        LangElement::render([], 'en'),
+                    Options::render([
+                        Version::render([], '1.0'),
+                        Lang::render([], 'en'),
+                    ]),
+
+                    Services::render([
+                        ObjectURI::render([], 'urn:ietf:params:xml:ns:domain-1.0'),
+                        ObjectURI::render([], 'urn:ietf:params:xml:ns:contact-1.0'),
+                        ObjectURI::render([], 'urn:ietf:params:xml:ns:host-1.0'),
+
+                        $this->renderExtensions(),
                     ]),
 
                 ]),
-                ClientTransactionIdentifierElement::render([], 'ABCD-1234'),
+                $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
             ]),
         ]);
+    }
+
+    private function renderExtensions(): ?DOMElement
+    {
+        if (count($this->extensions) === 0) {
+            return null;
+        }
+
+        $extensionURIs = array_map(function ($uri) {
+            return ExtensionURI::render([], $uri);
+        }, $this->extensions);
+
+        return ServiceExtension::render($extensionURIs);
     }
 }

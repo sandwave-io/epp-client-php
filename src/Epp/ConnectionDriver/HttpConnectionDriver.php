@@ -2,6 +2,20 @@
 
 namespace SandwaveIo\EppClient\Epp\ConnectionDriver;
 
-class HttpConnectionDriver implements ConnectionDriverInterface
+class HttpConnectionDriver extends AbstractConnectionDriver
 {
+    public function executeRequest(string $request, string $requestId): string
+    {
+        // TODO: Implement executeRequest() method.
+    }
+
+    public function connect(): bool
+    {
+        return true;
+    }
+
+    public function disconnect(): bool
+    {
+        return true;
+    }
 }

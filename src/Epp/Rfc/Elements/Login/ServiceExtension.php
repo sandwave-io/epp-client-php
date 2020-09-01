@@ -4,7 +4,7 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Elements\Login;
 
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Element;
 
-final class NewPasswordElement extends Element
+final class ServiceExtension extends Element
 {
-    public static $element = 'newPW';
+    public static $element = 'svcExtension';
 }

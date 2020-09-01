@@ -2,7 +2,7 @@
 
 namespace SandwaveIo\EppClient\Epp\Rfc\Elements;
 
-final class CommandElement extends Element
+final class Command extends Element
 {
     public static $element = 'command';
 }

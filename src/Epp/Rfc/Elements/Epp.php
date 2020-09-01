@@ -4,7 +4,7 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Elements;
 
 use DOMElement;
 
-final class EppElement extends Element
+final class Epp extends Element
 {
     public static $element = 'epp';
 

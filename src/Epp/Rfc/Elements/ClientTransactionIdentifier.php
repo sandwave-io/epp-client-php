@@ -2,7 +2,7 @@
 
 namespace SandwaveIo\EppClient\Epp\Rfc\Elements;
 
-final class ClientTransactionIdentifierElement extends Element
+final class ClientTransactionIdentifier extends Element
 {
     public static $element = 'clTRID';
 }

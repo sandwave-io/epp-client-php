@@ -4,7 +4,7 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Elements\Login;
 
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Element;
 
-final class LangElement extends Element
+final class Login extends Element
 {
-    public static $element = 'lang';
+    public static $element = 'login';
 }

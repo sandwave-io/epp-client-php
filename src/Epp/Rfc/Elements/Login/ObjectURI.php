@@ -4,7 +4,7 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Elements\Login;
 
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Element;
 
-final class LoginElement extends Element
+final class ObjectURI extends Element
 {
-    public static $element = 'login';
+    public static $element = 'objURI';
 }

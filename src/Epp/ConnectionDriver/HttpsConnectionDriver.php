@@ -2,6 +2,6 @@
 
 namespace SandwaveIo\EppClient\Epp\ConnectionDriver;
 
-class HttpsConnectionDriver implements ConnectionDriverInterface
+class HttpsConnectionDriver extends HttpConnectionDriver
 {
 }
