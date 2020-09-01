@@ -25,7 +25,7 @@ abstract class Request extends Document
 
     public function setClientTransactionIdentifier(string $clientTransactionIdentifier): void
     {
-        return $this->clientTransactionIdentifier = $clientTransactionIdentifier;
+        $this->clientTransactionIdentifier = $clientTransactionIdentifier;
     }
 
     public function renderAndAppendChildren(): Request

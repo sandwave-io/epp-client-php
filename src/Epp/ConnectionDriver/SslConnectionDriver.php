@@ -4,12 +4,19 @@ namespace SandwaveIo\EppClient\Epp\ConnectionDriver;
 
 use Hoa\File\Write;
 use SandwaveIo\EppClient\Epp\ConnectionDriver\Support\ReadBuffer;
+use SandwaveIo\EppClient\Epp\ConnectionDriver\Support\Stream;
 use SandwaveIo\EppClient\Epp\ConnectionDriver\Support\WriteBuffer;
 use SandwaveIo\EppClient\Exceptions\ConnectException;
 use SandwaveIo\EppClient\Exceptions\TimeoutException;
 
 class SslConnectionDriver extends AbstractConnectionDriver
 {
+    /** @var string */
+    private $hostname;
+
+    /** @var int  */
+    private $port;
+
     /** @var bool */
     private $isBlocking;
 
@@ -28,8 +35,8 @@ class SslConnectionDriver extends AbstractConnectionDriver
     /** @var bool|null */
     private $allowSelfSigned;
 
-    /** @var resource|null */
-    private $connection;
+    /** @var Stream|null */
+    private $stream;
 
     public function __construct(
         string $hostname,
@@ -42,6 +49,8 @@ class SslConnectionDriver extends AbstractConnectionDriver
         ?string $localCertificatePassword = null,
         ?bool $allowSelfSigned = null
     ) {
+        $this->hostname = $hostname;
+        $this->port = $port;
         $this->isBlocking = $isBlocking;
         $this->verifyPeer = $verifyPeer;
         $this->verifyPeerName = $verifyPeerName;
@@ -54,23 +63,17 @@ class SslConnectionDriver extends AbstractConnectionDriver
 
     public function connect(): bool
     {
-        $connection = stream_socket_client(
-            "{$this->hostname}:{$this->port}",
-            $errorNumber,
-            $errorMessage,
+        $this->stream = new Stream(
+            $this->hostname,
+            $this->port,
             $this->timeout,
-            STREAM_CLIENT_CONNECT,
-            $this->createStreamContext()
+            $this->isBlocking,
+            $this->verifyPeer,
+            $this->verifyPeerName,
+            $this->localCertificatePath,
+            $this->localCertificatePassword,
+            $this->allowSelfSigned
         );
-
-        if (! is_resource($connection)) {
-            throw new ConnectException("Could not instantiate EPP connection to {$this->hostname}:{$this->port}. Reason: [{$errorNumber}]: $errorMessage");
-        }
-
-        stream_set_blocking($connection, $this->isBlocking);
-        stream_set_timeout($connection, $this->timeout);
-
-        $this->connection = $connection;
 
         return $this->isConnected();
     }
@@ -81,76 +84,18 @@ class SslConnectionDriver extends AbstractConnectionDriver
             return true;
         }
 
-        fclose($this->connection);
-        $this->connection = null;
-
-        // Consume the first package from the connection.
-        $this->read();
-
+        $this->stream->close();
         return true;
+    }
+
+    public function isConnected(): bool
+    {
+        return $this->stream && $this->stream->isConnected();
     }
 
     public function executeRequest(string $request, string $requestId): string
     {
         // TODO: Implement executeRequest() method.
-    }
-
-    public function isConnected(): bool
-    {
-        return is_resource($this->connection);
-    }
-
-    private function read(bool $nonBlocking = false): string
-    {
-        if (! $this->isConnected()) {
-            return '';
-        }
-
-        $buffer = new ReadBuffer($this->connection, $this->timeout, $nonBlocking);
-        try {
-            $content = $buffer->readPackage();
-        } catch (TimeoutException $e) {
-            return '';
-        }
-
-        return $content;
-    }
-
-    private function write(string $content): void
-    {
-        if (! $this->isConnected()) {
-            return;
-        }
-
-        $buffer = new WriteBuffer($this->connection, $content);
-        $buffer->write();
-    }
-
-    /** @return resource */
-    private function createStreamContext()
-    {
-        $context = stream_context_create();
-        stream_context_set_option($context, 'ssl', 'verify_peer', $this->verifyPeer);
-        stream_context_set_option($context, 'ssl', 'verify_peer_name', $this->verifyPeerName);
-
-        if (! $this->localCertificatePath) {
-            return $context;
-        }
-
-        stream_context_set_option($context, 'ssl', 'local_cert', $this->localCertificatePath);
-
-        if ($this->localCertificatePassword && strlen($this->localCertificatePassword) > 0) {
-            stream_context_set_option($context, 'ssl', 'passphrase', $this->localCertificatePassword);
-        }
-
-        if ($this->allowSelfSigned === null) {
-            stream_context_set_option($context, 'ssl', 'verify_peer', $this->verifyPeer);
-            return $context;
-        }
-
-        stream_context_set_option($context, 'ssl', 'allow_self_signed', $this->allowSelfSigned);
-        stream_context_set_option($context, 'ssl', 'verify_peer', false);
-
-        return $context;
+        return '';
     }
 }

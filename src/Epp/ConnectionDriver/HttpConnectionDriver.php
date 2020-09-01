@@ -7,6 +7,7 @@ class HttpConnectionDriver extends AbstractConnectionDriver
     public function executeRequest(string $request, string $requestId): string
     {
         // TODO: Implement executeRequest() method.
+        return '';
     }
 
     public function connect(): bool
