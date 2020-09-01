@@ -87,7 +87,7 @@ class SslConnectionDriver extends AbstractConnectionDriver
     public function executeRequest(string $request, string $requestId): string
     {
         if ($this->stream === null || $this->stream->isConnected()) {
-            throw new ConnectException("No active connection!");
+            throw new ConnectException('No active connection!');
         }
 
         $this->stream->write($request);
