@@ -68,7 +68,7 @@ final class ReadBuffer
             //We know the length of what to read, so lets read the stuff
             if ($this->isContentLengthKnown()) {
                 $this->resetTimeout();
-                if ($read = fread($this->connection, $this->contentLength)) {
+                if (is_int($this->contentLength) && $read = fread($this->connection, $this->contentLength)) {
                     $this->contentLength -= strlen($read);
                     $content .= $read;
                     $this->resetTimeout();
@@ -79,11 +79,11 @@ final class ReadBuffer
                 }
             }
 
-            if ($this->nonBlocking && strlen($content) < 1) {
+            if ($this->nonBlocking && is_string($content) && strlen($content) < 1) {
                 break;
             }
 
-            if (! strlen($read)) {
+            if (is_string($read) && ! strlen($read)) {
                 usleep(100);
             }
         }
@@ -144,12 +144,12 @@ final class ReadBuffer
         return $this->contentLength === null || $this->contentLength === 0;
     }
 
-    private function isContentLengthKnown()
+    private function isContentLengthKnown(): bool
     {
-        return $this->contentLength !== null || $this->contentLength > 0;
+        return $this->contentLength !== null && $this->contentLength > 0;
     }
 
-    private function isSessionLimitExceeded(string $content)
+    private function isSessionLimitExceeded(string $content): bool
     {
         return strpos($content, 'Session limit exceeded') !== -1;
     }

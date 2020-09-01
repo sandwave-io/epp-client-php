@@ -8,15 +8,10 @@ use SandwaveIo\EppClient\Epp\ConnectionDriver\Support\Stream;
 use SandwaveIo\EppClient\Epp\ConnectionDriver\Support\WriteBuffer;
 use SandwaveIo\EppClient\Exceptions\ConnectException;
 use SandwaveIo\EppClient\Exceptions\TimeoutException;
+use Webmozart\Assert\Assert;
 
 class SslConnectionDriver extends AbstractConnectionDriver
 {
-    /** @var string */
-    private $hostname;
-
-    /** @var int  */
-    private $port;
-
     /** @var bool */
     private $isBlocking;
 
@@ -49,8 +44,6 @@ class SslConnectionDriver extends AbstractConnectionDriver
         ?string $localCertificatePassword = null,
         ?bool $allowSelfSigned = null
     ) {
-        $this->hostname = $hostname;
-        $this->port = $port;
         $this->isBlocking = $isBlocking;
         $this->verifyPeer = $verifyPeer;
         $this->verifyPeerName = $verifyPeerName;
@@ -84,7 +77,10 @@ class SslConnectionDriver extends AbstractConnectionDriver
             return true;
         }
 
-        $this->stream->close();
+        if ($this->stream) {
+            $this->stream->close();
+        }
+
         return true;
     }
 

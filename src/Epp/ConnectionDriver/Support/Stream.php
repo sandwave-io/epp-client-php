@@ -9,6 +9,9 @@ use SandwaveIo\EppClient\Exceptions\TimeoutException;
 
 class Stream
 {
+    /** @var int */
+    private $timeout;
+
     /** @var bool */
     private $isBlocking;
 
@@ -35,7 +38,7 @@ class Stream
     public function __construct(
         string $hostname,
         int $port,
-        ?int $timeout = null,
+        int $timeout = 10,
         bool $isBlocking = false,
         bool $verifyPeer = true,
         bool $verifyPeerName = true,
@@ -43,19 +46,19 @@ class Stream
         ?string $localCertificatePassword = null,
         ?bool $allowSelfSigned = null
     ) {
+        $this->timeout = $timeout;
         $this->isBlocking = $isBlocking;
         $this->verifyPeer = $verifyPeer;
         $this->verifyPeerName = $verifyPeerName;
         $this->localCertificatePath = $localCertificatePath;
         $this->localCertificatePassword = $localCertificatePassword;
         $this->allowSelfSigned = $allowSelfSigned;
-        $this->timeout = $timeout;
 
         $connection = stream_socket_client(
             "{$hostname}:{$port}",
             $errorNumber,
             $errorMessage,
-            $this->timeout,
+            $timeout,
             STREAM_CLIENT_CONNECT,
             $this->createStreamContext()
         );
@@ -65,7 +68,7 @@ class Stream
         }
 
         stream_set_blocking($connection, $this->isBlocking);
-        stream_set_timeout($connection, $this->timeout);
+        stream_set_timeout($connection, $timeout);
 
         $this->connection = $connection;
     }
@@ -75,9 +78,9 @@ class Stream
         if (! $this->isConnected()) {
             return;
         }
-
         fclose($this->connection);
-        $this->connection = null;
+
+        unset($this->connection);
     }
 
     public function isConnected(): bool
