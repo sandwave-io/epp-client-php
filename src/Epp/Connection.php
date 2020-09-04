@@ -56,7 +56,7 @@ final class Connection
         ]);
 
         // Parse and return response
-        return Response::fromString($response);
+        return Document::fromString($response);
     }
 
     private function log(string $text, array $context = []): void

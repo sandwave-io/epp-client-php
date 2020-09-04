@@ -5,17 +5,22 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Requests;
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Document;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Element;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 
 abstract class Request extends Document
 {
     /** @var string|null */
     protected $clientTransactionIdentifier;
 
-    public function __construct(?string $clientTransactionIdentifier = null)
+    /** @var array<string, string> */
+    protected $extensions;
+
+    public function __construct(?string $clientTransactionIdentifier = null, array $extensions = [])
     {
         parent::__construct();
 
         $this->clientTransactionIdentifier = $clientTransactionIdentifier;
+        $this->extensions = $extensions;
     }
 
     public function getClientTransactionIdentifier(): ?string
@@ -37,4 +42,15 @@ abstract class Request extends Document
     }
 
     abstract protected function renderElements(): DOMElement;
+
+    protected function renderEppElement(array $children): DOMElement
+    {
+        $epp = Epp::render($children);
+
+        foreach ($this->extensions as $name => $extension) {
+            $epp->setAttribute($name, $extension);
+        }
+
+        return $epp;
+    }
 }

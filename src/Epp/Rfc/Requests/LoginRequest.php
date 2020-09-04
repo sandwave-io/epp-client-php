@@ -5,7 +5,6 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Requests;
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\ClientId;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\ExtensionURI;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\Lang;
@@ -30,21 +29,21 @@ class LoginRequest extends Request
     private $newPassword;
 
     /** @var array<string> */
-    private $extensions;
+    private $serviceExtensions;
 
-    public function __construct(string $username, string $password, ?string $newPassword = null, array $extensions = [], ?string $clientTransactionIdentifier = null)
+    public function __construct(string $username, string $password, ?string $newPassword = null, array $extensions = [], array $serviceExtensions = [], ?string $clientTransactionIdentifier = null)
     {
-        parent::__construct($clientTransactionIdentifier);
+        parent::__construct($clientTransactionIdentifier, $extensions);
 
         $this->username = $username;
         $this->password = $password;
         $this->newPassword = $newPassword;
-        $this->extensions = $extensions;
+        $this->serviceExtensions = $serviceExtensions;
     }
 
     protected function renderElements(): DOMElement
     {
-        return Epp::render([
+        return $this->renderEppElement([
             Command::render([
                 Login::render([
 
@@ -73,13 +72,13 @@ class LoginRequest extends Request
 
     private function renderExtensions(): ?DOMElement
     {
-        if (count($this->extensions) === 0) {
+        if (count($this->serviceExtensions) === 0) {
             return null;
         }
 
         $extensionURIs = array_map(function ($uri) {
             return ExtensionURI::render([], $uri);
-        }, $this->extensions);
+        }, $this->serviceExtensions);
 
         return ServiceExtension::render($extensionURIs);
     }
