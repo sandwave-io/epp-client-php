@@ -8,7 +8,7 @@ use SandwaveIo\EppClient\Epp\Rfc\Responses\LoginResponse;
 
 abstract class AbstractService
 {
-    /** Connection */
+    /** @var Connection */
     protected $connection;
 
     /** @var array<string> */

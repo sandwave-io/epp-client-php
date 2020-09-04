@@ -1,8 +1,6 @@
-<?php
-
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Tests\Requests;
-
 
 use PHPStan\Testing\TestCase;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\LogoutRequest;
@@ -17,7 +15,7 @@ class LogoutRequestTest extends TestCase
         );
 
         $xmlString = $request->renderAndAppendChildren()->toString();
-        $this->assertXmlStringEqualsXmlFile(__DIR__.'/data/logout.xml', $xmlString);
+        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/data/logout.xml', $xmlString);
     }
 
     public function test_logout_sidn_request(): void
@@ -28,6 +26,6 @@ class LogoutRequestTest extends TestCase
         );
 
         $xmlString = $request->renderAndAppendChildren()->toString();
-        $this->assertXmlStringEqualsXmlFile(__DIR__.'/data/logout_sidn.xml', $xmlString);
+        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/data/logout_sidn.xml', $xmlString);
     }
 }
