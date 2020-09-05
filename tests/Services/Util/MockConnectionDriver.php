@@ -1,8 +1,6 @@
-<?php
-
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Tests\Services\Util;
-
 
 use PHPUnit\Framework\TestCase;
 use SandwaveIo\EppClient\Epp\ConnectionDriver\AbstractConnectionDriver;
@@ -48,7 +46,7 @@ final class MockConnectionDriver extends AbstractConnectionDriver
     public function executeRequest(string $request, string $requestId): string
     {
         if (! $assertion = $this->nextAssertion()) {
-            return "";
+            return '';
         }
 
         $this->testCase->assertXmlStringEqualsXmlFile($assertion['request_path'], $request);

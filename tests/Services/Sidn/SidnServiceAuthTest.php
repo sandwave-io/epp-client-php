@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Tests\Services\Sidn;
 
@@ -13,7 +13,7 @@ class SidnServiceAuthTest extends TestCase
     {
         $driver = new MockConnectionDriver($this);
 
-        $driver->expectRequest(__DIR__ . '/../../data/requests/login_sidn.xml',  __DIR__ . '/../../data/responses/login.xml');
+        $driver->expectRequest(__DIR__ . '/../../data/requests/login_sidn.xml', __DIR__ . '/../../data/responses/login.xml');
 
         $service = new SidnService(new Connection($driver), 'admin', 'secret', 'ABC-12345');
 

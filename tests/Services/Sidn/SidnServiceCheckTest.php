@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Tests\Services\Sidn;
 
@@ -13,7 +13,7 @@ class SidnServiceCheckTest extends TestCase
     {
         $driver = new MockConnectionDriver($this);
 
-        $driver->expectRequest(__DIR__ . '/../../data/requests/login_sidn.xml',  __DIR__ . '/../../data/responses/login.xml');
+        $driver->expectRequest(__DIR__ . '/../../data/requests/login_sidn.xml', __DIR__ . '/../../data/responses/login.xml');
         $driver->expectRequest(__DIR__ . '/../../data/requests/domain_check_sidn.xml', __DIR__ . '/../../data/responses/domain_check.xml');
         $driver->expectRequest(__DIR__ . '/../../data/requests/logout_sidn.xml', __DIR__ . '/../../data/responses/logout.xml');
 
@@ -21,5 +21,4 @@ class SidnServiceCheckTest extends TestCase
 
         $service->checkDomains(['example.com', 'example.net', 'example.org']);
     }
-
 }

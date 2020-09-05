@@ -9,7 +9,7 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Element;
 abstract class Request extends Document
 {
     /** @var string|null */
-    protected $clientTransactionIdentifier = null;
+    protected $clientTransactionIdentifier;
 
     /** @var array<string, string> */
     protected $extensions = [];
