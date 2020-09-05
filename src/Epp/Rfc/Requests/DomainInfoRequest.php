@@ -29,9 +29,9 @@ class DomainInfoRequest extends Request
     /** @var string */
     private $password;
 
-    public function __construct(string $domain, string $hostsFilter = DomainInfoRequest::FILTER_ALL, ?string $password = null, array $extensions = [], ?string $clientTransactionIdentifier = null)
+    public function __construct(string $domain, string $hostsFilter = DomainInfoRequest::FILTER_ALL, ?string $password = null)
     {
-        parent::__construct($clientTransactionIdentifier, $extensions);
+        parent::__construct();
 
         $this->domain = $domain;
         $this->hostsFilter = $hostsFilter;
@@ -55,7 +55,7 @@ class DomainInfoRequest extends Request
                         $this->renderPassword(),
                     ]),
                 ]),
-                ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier),
+                $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
             ]),
         ], null, $this->extensions);
     }

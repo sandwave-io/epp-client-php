@@ -9,33 +9,30 @@ class DomainCheckRequestTest extends TestCase
 {
     public function test_domain_check_request(): void
     {
-        $request = new DomainCheckRequest(
-            [
-                'example.com',
-                'example.net',
-                'example.org',
-            ],
-            [],
-            'ABCD-1234'
-        );
+        $request = new DomainCheckRequest([
+            'example.com',
+            'example.net',
+            'example.org',
+        ]);
+
+        $request->setClientTransactionIdentifier('ABC-12345');
 
         $xmlString = $request->renderAndAppendChildren()->toString();
-        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/data/domain_check.xml', $xmlString);
+        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/../data/requests/domain_check.xml', $xmlString);
     }
 
     public function test_domain_check_sidn_request(): void
     {
-        $request = new DomainCheckRequest(
-            [
-                'example.com',
-                'example.net',
-                'example.org',
-            ],
-            ['sidn-ext-epp' => 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0'],
-            'ABCD-1234'
-        );
+        $request = new DomainCheckRequest([
+            'example.com',
+            'example.net',
+            'example.org',
+        ]);
+
+        $request->addEppExtension('sidn-ext-epp', 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0');
+        $request->setClientTransactionIdentifier('ABC-12345');
 
         $xmlString = $request->renderAndAppendChildren()->toString();
-        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/data/domain_check_sidn.xml', $xmlString);
+        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/../data/requests/domain_check_sidn.xml', $xmlString);
     }
 }

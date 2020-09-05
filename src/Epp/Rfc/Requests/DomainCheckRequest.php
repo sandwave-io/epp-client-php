@@ -15,9 +15,9 @@ class DomainCheckRequest extends Request
     /** @var array<string> */
     private $domains;
 
-    public function __construct(array $domains, array $extensions = [], ?string $clientTransactionIdentifier = null)
+    public function __construct(array $domains)
     {
-        parent::__construct($clientTransactionIdentifier, $extensions);
+        parent::__construct();
 
         $this->domains = $domains;
     }
@@ -33,7 +33,7 @@ class DomainCheckRequest extends Request
                         }, $this->domains)
                     ),
                 ]),
-                ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier),
+                $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
             ]),
         ], null, $this->extensions);
     }

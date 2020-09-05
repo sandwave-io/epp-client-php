@@ -12,13 +12,13 @@ class DomainInfoRequestTest extends TestCase
         $request = new DomainInfoRequest(
             'example.com',
             DomainInfoRequest::FILTER_ALL,
-            null,
-            [],
-            'ABCD-1234'
+            null
         );
 
+        $request->setClientTransactionIdentifier('ABC-12345');
+
         $xmlString = $request->renderAndAppendChildren()->toString();
-        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/data/domain_info.xml', $xmlString);
+        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/../data/requests/domain_info.xml', $xmlString);
     }
 
     public function test_domain_info_password_request(): void
@@ -26,13 +26,13 @@ class DomainInfoRequestTest extends TestCase
         $request = new DomainInfoRequest(
             'example.com',
             DomainInfoRequest::FILTER_ALL,
-            '2fooBAR',
-            [],
-            'ABCD-1234'
+            '2fooBAR'
         );
 
+        $request->setClientTransactionIdentifier('ABC-12345');
+
         $xmlString = $request->renderAndAppendChildren()->toString();
-        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/data/domain_info_password.xml', $xmlString);
+        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/../data/requests/domain_info_password.xml', $xmlString);
     }
 
     public function test_domain_info_sidn_request(): void
@@ -40,12 +40,13 @@ class DomainInfoRequestTest extends TestCase
         $request = new DomainInfoRequest(
             'example.com',
             DomainInfoRequest::FILTER_ALL,
-            null,
-            ['sidn-ext-epp' => 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0'],
-            'ABCD-1234'
+            null
         );
 
+        $request->addEppExtension('sidn-ext-epp', 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0');
+        $request->setClientTransactionIdentifier('ABC-12345');
+
         $xmlString = $request->renderAndAppendChildren()->toString();
-        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/data/domain_info_sidn.xml', $xmlString);
+        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/../data/requests/domain_info_sidn.xml', $xmlString);
     }
 }

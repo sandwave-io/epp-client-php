@@ -10,9 +10,9 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Logout\Logout;
 
 class LogoutRequest extends Request
 {
-    public function __construct(array $extensions = [], ?string $clientTransactionIdentifier = null)
+    public function __construct()
     {
-        parent::__construct($clientTransactionIdentifier, $extensions);
+        parent::__construct();
     }
 
     protected function renderElements(): DOMElement
@@ -20,7 +20,7 @@ class LogoutRequest extends Request
         return Epp::render([
             Command::render([
                 Logout::render(),
-                ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier),
+                $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
             ]),
         ], null, $this->extensions);
     }

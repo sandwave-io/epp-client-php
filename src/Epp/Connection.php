@@ -29,12 +29,8 @@ final class Connection
         $this->driver->disconnect();
     }
 
-    public function execute(Request $request, ?string $requestId = null): Document
+    public function execute(Request $request, string $requestId): Document
     {
-        // Generate and set the Client Transaction Identifier
-        $requestId = $requestId ?? uniqid();
-        $request->setClientTransactionIdentifier($requestId);
-
         // Render XML
         $body = $request->renderAndAppendChildren()->toString();
 

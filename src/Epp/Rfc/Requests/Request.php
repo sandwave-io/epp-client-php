@@ -9,17 +9,14 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Element;
 abstract class Request extends Document
 {
     /** @var string|null */
-    protected $clientTransactionIdentifier;
+    protected $clientTransactionIdentifier = null;
 
     /** @var array<string, string> */
-    protected $extensions;
+    protected $extensions = [];
 
-    public function __construct(?string $clientTransactionIdentifier = null, array $extensions = [])
+    public function addEppExtension(string $name, string $url): void
     {
-        parent::__construct();
-
-        $this->clientTransactionIdentifier = $clientTransactionIdentifier;
-        $this->extensions = $extensions;
+        $this->extensions[$name] = $url;
     }
 
     public function getClientTransactionIdentifier(): ?string
@@ -27,7 +24,7 @@ abstract class Request extends Document
         return $this->clientTransactionIdentifier;
     }
 
-    public function setClientTransactionIdentifier(string $clientTransactionIdentifier): void
+    public function setClientTransactionIdentifier(?string $clientTransactionIdentifier): void
     {
         $this->clientTransactionIdentifier = $clientTransactionIdentifier;
     }

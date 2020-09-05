@@ -32,9 +32,9 @@ class LoginRequest extends Request
     /** @var array<string> */
     private $serviceExtensions;
 
-    public function __construct(string $username, string $password, ?string $newPassword = null, array $extensions = [], array $serviceExtensions = [], ?string $clientTransactionIdentifier = null)
+    public function __construct(string $username, string $password, ?string $newPassword = null, array $serviceExtensions = [])
     {
-        parent::__construct($clientTransactionIdentifier, $extensions);
+        parent::__construct();
 
         $this->username = $username;
         $this->password = $password;
