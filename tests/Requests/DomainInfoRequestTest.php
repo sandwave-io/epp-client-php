@@ -12,6 +12,7 @@ class DomainInfoRequestTest extends TestCase
         $request = new DomainInfoRequest(
             'example.com',
             DomainInfoRequest::FILTER_ALL,
+            null,
             [],
             'ABCD-1234'
         );
@@ -20,11 +21,26 @@ class DomainInfoRequestTest extends TestCase
         $this->assertXmlStringEqualsXmlFile(__DIR__ . '/data/domain_info.xml', $xmlString);
     }
 
+    public function test_domain_info_password_request(): void
+    {
+        $request = new DomainInfoRequest(
+            'example.com',
+            DomainInfoRequest::FILTER_ALL,
+            '2fooBAR',
+            [],
+            'ABCD-1234'
+        );
+
+        $xmlString = $request->renderAndAppendChildren()->toString();
+        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/data/domain_info_password.xml', $xmlString);
+    }
+
     public function test_domain_info_sidn_request(): void
     {
         $request = new DomainInfoRequest(
             'example.com',
             DomainInfoRequest::FILTER_ALL,
+            null,
             ['sidn-ext-epp' => 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0'],
             'ABCD-1234'
         );
