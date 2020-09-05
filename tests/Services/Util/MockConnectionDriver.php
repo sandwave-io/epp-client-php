@@ -16,7 +16,7 @@ final class MockConnectionDriver extends AbstractConnectionDriver
 
     public function __construct(TestCase $testCase)
     {
-        parent::__construct('test.example.com', '12345');
+        parent::__construct('test.example.com', 12345);
 
         $this->testCase = $testCase;
     }
@@ -51,7 +51,12 @@ final class MockConnectionDriver extends AbstractConnectionDriver
 
         $this->testCase->assertXmlStringEqualsXmlFile($assertion['request_path'], $request);
 
-        return file_get_contents($assertion['response_path']);
+        if (! $response = file_get_contents($assertion['response_path'])) {
+            $this->testCase->assertIsString($response, 'Mock response cannot be resolved');
+            return '';
+        }
+
+        return $response;
     }
 
     public function expectRequest(string $requestPath, string $responsePath): MockConnectionDriver

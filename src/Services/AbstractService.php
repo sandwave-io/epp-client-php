@@ -25,7 +25,7 @@ abstract class AbstractService
     /** @var string */
     private $password;
 
-    /** @var string */
+    /** @var string|null */
     private $overrideTransactionId;
 
     public function __construct(Connection $connection, string $username, string $password, ?string $overrideTransactionId = null)

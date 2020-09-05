@@ -26,7 +26,7 @@ class DomainInfoRequest extends Request
     /** @var string */
     private $hostsFilter;
 
-    /** @var string */
+    /** @var string|null */
     private $password;
 
     public function __construct(string $domain, string $hostsFilter = DomainInfoRequest::FILTER_ALL, ?string $password = null)
