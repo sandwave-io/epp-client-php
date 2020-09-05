@@ -8,6 +8,7 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainCheck\Check;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainCheck\DomainCheck;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainCheck\DomainName;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 
 class DomainCheckRequest extends Request
 {
@@ -23,7 +24,7 @@ class DomainCheckRequest extends Request
 
     protected function renderElements(): DOMElement
     {
-        return $this->renderEppElement([
+        return Epp::render([
             Command::render([
                 Check::render([
                     DomainCheck::render(
@@ -34,6 +35,6 @@ class DomainCheckRequest extends Request
                 ]),
                 ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier),
             ]),
-        ]);
+        ], null, $this->extensions);
     }
 }

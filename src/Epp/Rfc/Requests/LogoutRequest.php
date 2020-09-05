@@ -5,6 +5,7 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Requests;
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Logout\Logout;
 
 class LogoutRequest extends Request
@@ -16,11 +17,11 @@ class LogoutRequest extends Request
 
     protected function renderElements(): DOMElement
     {
-        return $this->renderEppElement([
+        return Epp::render([
             Command::render([
                 Logout::render(),
                 ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier),
             ]),
-        ]);
+        ], null, $this->extensions);
     }
 }

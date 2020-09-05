@@ -5,7 +5,6 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Requests;
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Document;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Element;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 
 abstract class Request extends Document
 {
@@ -42,15 +41,4 @@ abstract class Request extends Document
     }
 
     abstract protected function renderElements(): DOMElement;
-
-    protected function renderEppElement(array $children): DOMElement
-    {
-        $epp = Epp::render($children);
-
-        foreach ($this->extensions as $name => $extension) {
-            $epp->setAttribute($name, $extension);
-        }
-
-        return $epp;
-    }
 }

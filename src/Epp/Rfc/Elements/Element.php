@@ -38,12 +38,17 @@ abstract class Element
      *
      * @param array<DOMElement|null> $children
      * @param string|null            $value
+     * @param array<string,string>   $attributes
      *
      * @return DOMElement
      */
-    public static function render(array $children = [], ?string $value = null): DOMElement
+    public static function render(array $children = [], ?string $value = null, array $attributes = []): DOMElement
     {
         $element = Element::getDocument()->createElement(static::$element, (string) $value);
+
+        foreach ($attributes as $name => $extension) {
+            $element->setAttribute($name, $extension);
+        }
 
         return Element::appendChildren($element, $children);
     }

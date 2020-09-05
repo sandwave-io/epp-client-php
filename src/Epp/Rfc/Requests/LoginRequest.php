@@ -5,6 +5,7 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Requests;
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\ClientId;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\ExtensionURI;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\Lang;
@@ -43,7 +44,7 @@ class LoginRequest extends Request
 
     protected function renderElements(): DOMElement
     {
-        return $this->renderEppElement([
+        return Epp::render([
             Command::render([
                 Login::render([
 
@@ -67,7 +68,7 @@ class LoginRequest extends Request
                 ]),
                 $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
             ]),
-        ]);
+        ], null, $this->extensions);
     }
 
     private function renderExtensions(): ?DOMElement
