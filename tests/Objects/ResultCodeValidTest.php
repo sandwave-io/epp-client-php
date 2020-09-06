@@ -1,8 +1,6 @@
-<?php
-
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Tests\Objects;
-
 
 use PHPUnit\Framework\TestCase;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\Objects\ResultCode;
@@ -55,6 +53,6 @@ class ResultCodeValidTest extends TestCase
     /** @dataProvider validData */
     public function test_is_valid($code, $isValid): void
     {
-        $this->assertSame($isValid, ResultCode::isValid($code), "Failed asserting that result code {$code} is ".($isValid ? 'valid.' : 'invalid.'));
+        $this->assertSame($isValid, ResultCode::isValid($code), "Failed asserting that result code {$code} is " . ($isValid ? 'valid.' : 'invalid.'));
     }
 }

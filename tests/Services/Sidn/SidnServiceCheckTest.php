@@ -21,6 +21,6 @@ class SidnServiceCheckTest extends TestCase
 
         $response = $service->checkDomains(['example.com', 'example.net', 'example.org']);
 
-        $this->assertSame("1000", (string) $response->getResultCode());
+        $this->assertSame('1000', (string) $response->getResultCode());
     }
 }

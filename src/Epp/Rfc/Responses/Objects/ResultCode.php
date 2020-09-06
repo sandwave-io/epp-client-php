@@ -1,8 +1,6 @@
-<?php
-
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Epp\Rfc\Responses\Objects;
-
 
 use SandwaveIo\EppClient\Exceptions\UnexpectedValueException;
 
@@ -14,6 +12,11 @@ class ResultCode
     private function __construct(string $code)
     {
         $this->code = $code;
+    }
+
+    public function __toString(): string
+    {
+        return $this->toString();
     }
 
     public static function isValid(string $code): bool
@@ -42,10 +45,5 @@ class ResultCode
     public function isFailure(): bool
     {
         return ! $this->isSuccess();
-    }
-
-    public function __toString(): string
-    {
-        return $this->toString();
     }
 }

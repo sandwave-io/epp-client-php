@@ -19,7 +19,7 @@ class DomainTransferRequestTest extends TestCase
 
     public function test_domain_transfer_password_request(): void
     {
-        $request = new DomainTransferRequest('example.com','2fooBAR');
+        $request = new DomainTransferRequest('example.com', '2fooBAR');
 
         $request->setClientTransactionIdentifier('ABC-12345');
 
@@ -29,7 +29,7 @@ class DomainTransferRequestTest extends TestCase
 
     public function test_domain_transfer_password_roid_request(): void
     {
-        $request = new DomainTransferRequest('example.com','2fooBAR','JD1234-REP');
+        $request = new DomainTransferRequest('example.com', '2fooBAR', 'JD1234-REP');
 
         $request->setClientTransactionIdentifier('ABC-12345');
 

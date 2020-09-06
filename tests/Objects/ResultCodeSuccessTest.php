@@ -1,8 +1,6 @@
-<?php
-
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Tests\Objects;
-
 
 use PHPUnit\Framework\TestCase;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\Objects\ResultCode;
@@ -54,7 +52,7 @@ class ResultCodeSuccessTest extends TestCase
     {
         $code = ResultCode::fromString($code);
 
-        $this->assertSame($isSuccess, $code->isSuccess(), "Failed asserting that {$code} has status: ".($isSuccess ? 'success' : 'failure'));
-        $this->assertSame($isSuccess, ! $code->isFailure(), "Failed asserting that {$code} has status: ".($isSuccess ? 'success' : 'failure'));
+        $this->assertSame($isSuccess, $code->isSuccess(), "Failed asserting that {$code} has status: " . ($isSuccess ? 'success' : 'failure'));
+        $this->assertSame($isSuccess, ! $code->isFailure(), "Failed asserting that {$code} has status: " . ($isSuccess ? 'success' : 'failure'));
     }
 }

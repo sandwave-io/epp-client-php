@@ -1,12 +1,9 @@
-<?php
-
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Epp\Rfc\Responses\Objects;
 
-
 use DOMElement;
 use SandwaveIo\EppClient\Exceptions\EppXmlException;
-use SandwaveIo\EppClient\Exceptions\UnexpectedValueException;
 
 class DomainCheckData
 {

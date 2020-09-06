@@ -3,7 +3,6 @@
 namespace SandwaveIo\EppClient\Epp\Rfc\Responses;
 
 use DOMElement;
-use DOMNode;
 use DOMNodeList;
 use DOMXPath;
 use SandwaveIo\EppClient\Epp\Rfc\Document;

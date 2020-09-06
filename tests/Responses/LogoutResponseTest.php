@@ -1,8 +1,6 @@
-<?php
-
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Tests\Responses;
-
 
 use PHPUnit\Framework\TestCase;
 use SandwaveIo\EppClient\Epp\Rfc\Document;
@@ -12,7 +10,7 @@ class LogoutResponseTest extends TestCase
 {
     public function test_response(): void
     {
-        $response = new LogoutResponse(Document::fromString(file_get_contents(__DIR__.'/../data/responses/logout.xml')));
+        $response = new LogoutResponse(Document::fromString(file_get_contents(__DIR__ . '/../data/responses/logout.xml')));
 
         $this->assertTrue($response->isSuccess(), 'Failed asserting that response is successful.');
         $this->assertSame('1500', (string) $response->getResultCode(), 'Failed assertion on response code.');
