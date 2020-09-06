@@ -51,7 +51,7 @@ class ResultCodeValidTest extends TestCase
     }
 
     /** @dataProvider validData */
-    public function test_is_valid($code, $isValid): void
+    public function test_is_valid(string $code, bool $isValid): void
     {
         $this->assertSame($isValid, ResultCode::isValid($code), "Failed asserting that result code {$code} is " . ($isValid ? 'valid.' : 'invalid.'));
     }

@@ -58,6 +58,12 @@ abstract class Response
 
     protected function query(string $expression): DOMNodeList
     {
-        return (new DOMXPath($this->document))->query($expression);
+        $result = (new DOMXPath($this->document))->query($expression);
+
+        if ($result === false) {
+            throw new EppXmlException("DOMXPath query [{$expression}] had no results.");
+        }
+
+        return $result;
     }
 }

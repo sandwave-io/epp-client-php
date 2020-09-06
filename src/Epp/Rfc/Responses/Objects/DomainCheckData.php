@@ -25,7 +25,7 @@ class DomainCheckData
 
     public static function fromXML(DOMElement $domainCheckData): DomainCheckData
     {
-        if (! $domainCheckData->localName === 'cd') {
+        if ($domainCheckData->localName !== 'cd') {
             throw new EppXmlException('DomainCheckData can only be parsed from a <domain:cd/> element.');
         }
 

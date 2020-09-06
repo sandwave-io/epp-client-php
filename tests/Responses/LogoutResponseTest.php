@@ -10,7 +10,7 @@ class LogoutResponseTest extends TestCase
 {
     public function test_response(): void
     {
-        $response = new LogoutResponse(Document::fromString(file_get_contents(__DIR__ . '/../data/responses/logout.xml')));
+        $response = new LogoutResponse(Document::fromString((string) file_get_contents(__DIR__ . '/../data/responses/logout.xml')));
 
         $this->assertTrue($response->isSuccess(), 'Failed asserting that response is successful.');
         $this->assertSame('1500', (string) $response->getResultCode(), 'Failed assertion on response code.');

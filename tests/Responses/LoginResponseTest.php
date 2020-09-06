@@ -10,7 +10,7 @@ class LoginResponseTest extends TestCase
 {
     public function test_response(): void
     {
-        $response = new LoginResponse(Document::fromString(file_get_contents(__DIR__ . '/../data/responses/login.xml')));
+        $response = new LoginResponse(Document::fromString((string) file_get_contents(__DIR__ . '/../data/responses/login.xml')));
 
         $this->assertTrue($response->isSuccess(), 'Failed asserting that response is successful.');
         $this->assertSame('1000', (string) $response->getResultCode(), 'Failed assertion on response code.');
