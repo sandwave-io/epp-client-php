@@ -2,7 +2,13 @@
 
 namespace SandwaveIo\EppClient\Epp\Rfc\Responses;
 
+use DOMElement;
+use DOMNode;
+use DOMNodeList;
+use DOMXPath;
 use SandwaveIo\EppClient\Epp\Rfc\Document;
+use SandwaveIo\EppClient\Epp\Rfc\Responses\Objects\ResultCode;
+use SandwaveIo\EppClient\Exceptions\EppXmlException;
 
 abstract class Response
 {
@@ -14,9 +20,45 @@ abstract class Response
         $this->document = $document;
     }
 
-    public function getResultCode(): string
+    public function isSuccess(): bool
     {
-//        TODO: Implement getter.
-        return 'tmp';
+        return $this->getResultCode()->isSuccess();
+    }
+
+    public function getResultCode(): ResultCode
+    {
+        return ResultCode::fromString($this->getElement('result')->getAttribute('code'));
+    }
+
+    public function getResultMessage(): string
+    {
+        return trim($this->getElement('result')->textContent);
+    }
+
+    public function getClientTransactionIdentifier(): string
+    {
+        return trim($this->getElement('clTRID')->textContent);
+    }
+
+    public function getServerTransactionIdentifier(): string
+    {
+        return trim($this->getElement('svTRID')->textContent);
+    }
+
+    protected function getElement(string $tag): DOMElement
+    {
+        if (! $result = $this->document->getElementsByTagName($tag)->item(0)) {
+            throw new EppXmlException("Cannot resolve <{$tag}/> tag from response.");
+        }
+
+        if (! $result instanceof DOMElement) {
+            throw new EppXmlException("Resolved tag <{$tag}/> tag is not a DOMElement.");
+        }
+        return $result;
+    }
+
+    protected function query(string $expression): DOMNodeList
+    {
+        return (new DOMXPath($this->document))->query($expression);
     }
 }
