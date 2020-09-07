@@ -5,13 +5,16 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Requests\Domain;
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Create;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainAuthInfo;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainContact;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainCreate;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainDelete;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainHostObject;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainName;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainNameservers;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainPassword;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainPeriod;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainRegistrant;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
@@ -68,22 +71,28 @@ class DomainCreateRequest extends Request
     {
         return Epp::render([
             Command::render([
-                DomainCreate::render([
-                    DomainName::render([], $this->domain),
-                    $this->period ? DomainName::render([], (string) $this->period, ['unit' => 'y']) : null,
+                Create::render([
+                    DomainCreate::render(array_merge(
+                        [
+                            DomainName::render([], $this->domain),
+                            $this->period ? DomainPeriod::render([], (string) $this->period, ['unit' => 'y']) : null,
 
-                    $this->nameservers ? DomainNameservers::render(
-                        array_map(function (string $nameserver) {
-                            return DomainHostObject::render([], $nameserver);
-                        }, $this->nameservers)
-                    ) : null,
+                            $this->nameservers ? DomainNameservers::render(
+                                array_map(function (string $nameserver) {
+                                    return DomainHostObject::render([], $nameserver);
+                                }, $this->nameservers)
+                            ) : null,
 
-                    $this->registrant ? DomainRegistrant::render([], $this->registrant) : null,
-
-                    $this->password ? DomainAuthInfo::render([
-                        DomainPassword::render([], $this->password),
-                    ]) : null,
-                ] + $this->renderContacts()),
+                            $this->registrant ? DomainRegistrant::render([], $this->registrant) : null,
+                        ],
+                        $this->renderContacts(),
+                        [
+                            $this->password ? DomainAuthInfo::render([
+                                DomainPassword::render([], $this->password),
+                            ]) : null,
+                        ]
+                    )),
+                ]),
 
                 $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
             ]),

@@ -5,9 +5,9 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Elements\Domain;
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Element;
 
-final class DomainCreate extends Element
+final class DomainUpdate extends Element
 {
-    public static $element = 'domain:create';
+    public static $element = 'domain:update';
 
     public static function render(array $children = [], ?string $value = null, array $attributes = []): DOMElement
     {

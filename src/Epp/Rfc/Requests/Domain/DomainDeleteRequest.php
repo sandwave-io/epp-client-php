@@ -5,6 +5,8 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Requests\Domain;
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainDelete;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainName;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
 
@@ -24,6 +26,10 @@ class DomainDeleteRequest extends Request
     {
         return Epp::render([
             Command::render([
+
+                DomainDelete::render([
+                    DomainName::render([], $this->domain),
+                ]),
 
                 $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
             ]),
