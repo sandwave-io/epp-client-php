@@ -60,7 +60,7 @@ class DomainRequestTransferRequest extends Request
                             DomainPassword::render(
                                 [],
                                 $this->password,
-                                $this->roid ? ['roid' => $this->roid] : null
+                                $this->roid ? ['roid' => $this->roid] : []
                             ),
                         ]),
                     ]),
