@@ -16,6 +16,10 @@ This client implements several registries using their EPP API. The base implemen
 * [RFC 5731](https://tools.ietf.org/html/rfc5731)
 * [RFC 5733](https://tools.ietf.org/html/rfc5733)
 
+The following registries are supported:
+
+* [**SIDN**](https://sidn.nl) (.nl)
+
 Are you missing functionality? Feel free to create an issue, or hit us up with a pull request.
 
 ## How to use
