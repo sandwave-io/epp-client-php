@@ -1,13 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace SandwaveIo\EppClient\Epp\Rfc\Requests;
+namespace SandwaveIo\EppClient\Epp\Rfc\Requests\Domain;
 
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
 
-class DomainCreateTransferRequest extends Request
+class DomainDeleteRequest extends Request
 {
     /** @var string */
     private $domain;

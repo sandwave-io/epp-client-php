@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace SandwaveIo\EppClient\Epp\Rfc\Requests;
+namespace SandwaveIo\EppClient\Epp\Rfc\Requests\Domain;
 
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
@@ -9,6 +9,7 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Check;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainCheck;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainName;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
 
 class DomainCheckRequest extends Request
 {

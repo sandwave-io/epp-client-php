@@ -4,9 +4,9 @@ namespace SandwaveIo\EppClient\Services;
 
 use SandwaveIo\EppClient\Epp\Connection;
 use SandwaveIo\EppClient\Epp\Rfc\Document;
-use SandwaveIo\EppClient\Epp\Rfc\Requests\DomainCheckRequest;
-use SandwaveIo\EppClient\Epp\Rfc\Requests\DomainInfoRequest;
-use SandwaveIo\EppClient\Epp\Rfc\Requests\DomainQueryTransferRequest;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainCheckRequest;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainInfoRequest;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainQueryTransferRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\LoginRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\LogoutRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
