@@ -61,8 +61,6 @@ abstract class AbstractService
 
     // EPP Transform Requests
 
-
-
     // Authentication
 
     public function login(string $username, string $password): LoginResponse

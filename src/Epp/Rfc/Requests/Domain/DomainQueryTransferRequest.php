@@ -5,11 +5,11 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Requests\Domain;
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Transfer;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainAuthInfo;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainName;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainPassword;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainTransfer;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Transfer;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
 

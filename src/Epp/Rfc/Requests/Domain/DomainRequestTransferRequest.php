@@ -8,7 +8,7 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
 
-class DomainCreateTransferRequest extends Request
+class DomainRequestTransferRequest extends Request
 {
     /** @var string */
     private $domain;
