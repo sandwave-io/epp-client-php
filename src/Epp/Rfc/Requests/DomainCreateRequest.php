@@ -6,20 +6,24 @@ use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Logout;
 
-class LogoutRequest extends Request
+class DomainCreateRequest extends Request
 {
-    public function __construct()
+    /** @var string */
+    private $domain;
+
+    public function __construct(string $domain)
     {
         parent::__construct();
+
+        $this->domain = $domain;
     }
 
     protected function renderElements(): DOMElement
     {
         return Epp::render([
             Command::render([
-                Logout::render(),
+
                 $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
             ]),
         ], null, $this->extensions);

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace SandwaveIo\EppClient\Epp\Rfc\Elements\DomainCheck;
+namespace SandwaveIo\EppClient\Epp\Rfc\Elements\Domain;
 
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Element;

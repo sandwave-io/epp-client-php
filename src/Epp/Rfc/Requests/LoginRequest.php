@@ -9,7 +9,7 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\ClientId;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\ExtensionURI;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\Lang;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\Login;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Login;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\NewPassword;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\ObjectURI;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Login\Options;
@@ -60,7 +60,6 @@ class LoginRequest extends Request
                     Services::render([
                         ObjectURI::render([], 'urn:ietf:params:xml:ns:domain-1.0'),
                         ObjectURI::render([], 'urn:ietf:params:xml:ns:contact-1.0'),
-                        ObjectURI::render([], 'urn:ietf:params:xml:ns:host-1.0'),
 
                         $this->renderExtensions(),
                     ]),

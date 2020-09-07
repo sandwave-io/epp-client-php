@@ -6,13 +6,13 @@ use SandwaveIo\EppClient\Epp\Connection;
 use SandwaveIo\EppClient\Epp\Rfc\Document;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\DomainCheckRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\DomainInfoRequest;
-use SandwaveIo\EppClient\Epp\Rfc\Requests\DomainTransferRequest;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\DomainQueryTransferRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\LoginRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\LogoutRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainCheckResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainInfoResponse;
-use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainTransferResponse;
+use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainQueryTransferResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\LoginResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\LogoutResponse;
 use SandwaveIo\EppClient\Exceptions\ConnectException;
@@ -53,10 +53,10 @@ abstract class AbstractService
         return new DomainInfoResponse($this->authenticatedRequest($request));
     }
 
-    public function domainTransferStatus(string $domain, ?string $domainPassword = null, ?string $registrantObjectId = null): DomainTransferResponse
+    public function domainTransferStatus(string $domain, ?string $domainPassword = null, ?string $registrantObjectId = null): DomainQueryTransferResponse
     {
-        $request = new DomainTransferRequest($domain, $domainPassword, $registrantObjectId);
-        return new DomainTransferResponse($this->authenticatedRequest($request));
+        $request = new DomainQueryTransferRequest($domain, $domainPassword, $registrantObjectId);
+        return new DomainQueryTransferResponse($this->authenticatedRequest($request));
     }
 
     // EPP Transform Requests

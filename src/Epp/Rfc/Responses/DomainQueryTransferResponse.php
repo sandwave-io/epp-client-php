@@ -2,6 +2,6 @@
 
 namespace SandwaveIo\EppClient\Epp\Rfc\Responses;
 
-class DomainTransferResponse extends Response
+class DomainQueryTransferResponse extends Response
 {
 }

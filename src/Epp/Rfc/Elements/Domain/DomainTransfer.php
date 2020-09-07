@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace SandwaveIo\EppClient\Epp\Rfc\Elements\DomainInfo;
+namespace SandwaveIo\EppClient\Epp\Rfc\Elements\Domain;
 
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Element;
 
-final class DomainInfo extends Element
+final class DomainTransfer extends Element
 {
-    public static $element = 'domain:info';
+    public static $element = 'domain:transfer';
 
     public static function render(array $children = [], ?string $value = null, array $attributes = []): DOMElement
     {

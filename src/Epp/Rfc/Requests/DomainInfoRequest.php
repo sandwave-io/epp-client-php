@@ -5,11 +5,11 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Requests;
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainInfo\DomainAuthInfo;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainInfo\DomainInfo;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainInfo\DomainName;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainInfo\DomainPassword;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainInfo\Info;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainAuthInfo;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainInfo;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainName;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainPassword;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Info;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 use Webmozart\Assert\Assert;
 

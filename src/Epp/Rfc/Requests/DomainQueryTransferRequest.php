@@ -5,14 +5,14 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Requests;
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainTransfer\DomainAuthInfo;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainTransfer\DomainName;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainTransfer\DomainPassword;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainTransfer\DomainTransfer;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainTransfer\Transfer;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainAuthInfo;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainName;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainPassword;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainTransfer;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Transfer;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 
-class DomainTransferRequest extends Request
+class DomainQueryTransferRequest extends Request
 {
     /** @var string */
     private $domain;
@@ -51,7 +51,7 @@ class DomainTransferRequest extends Request
                             : null,
 
                     ]),
-                ]),
+                ], null, ['op' => 'query']),
                 $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
             ]),
         ], null, $this->extensions);

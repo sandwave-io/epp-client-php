@@ -5,9 +5,9 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Requests;
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainCheck\Check;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainCheck\DomainCheck;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\DomainCheck\DomainName;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Check;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainCheck;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainName;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 
 class DomainCheckRequest extends Request

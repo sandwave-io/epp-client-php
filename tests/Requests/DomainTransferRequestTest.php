@@ -3,13 +3,13 @@
 namespace SandwaveIo\EppClient\Tests\Requests;
 
 use PHPUnit\Framework\TestCase;
-use SandwaveIo\EppClient\Epp\Rfc\Requests\DomainTransferRequest;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\DomainQueryTransferRequest;
 
 class DomainTransferRequestTest extends TestCase
 {
     public function test_domain_transfer_request(): void
     {
-        $request = new DomainTransferRequest('example.com');
+        $request = new DomainQueryTransferRequest('example.com');
 
         $request->setClientTransactionIdentifier('ABC-12345');
 
@@ -19,7 +19,7 @@ class DomainTransferRequestTest extends TestCase
 
     public function test_domain_transfer_password_request(): void
     {
-        $request = new DomainTransferRequest('example.com', '2fooBAR');
+        $request = new DomainQueryTransferRequest('example.com', '2fooBAR');
 
         $request->setClientTransactionIdentifier('ABC-12345');
 
@@ -29,7 +29,7 @@ class DomainTransferRequestTest extends TestCase
 
     public function test_domain_transfer_password_roid_request(): void
     {
-        $request = new DomainTransferRequest('example.com', '2fooBAR', 'JD1234-REP');
+        $request = new DomainQueryTransferRequest('example.com', '2fooBAR', 'JD1234-REP');
 
         $request->setClientTransactionIdentifier('ABC-12345');
 
@@ -39,7 +39,7 @@ class DomainTransferRequestTest extends TestCase
 
     public function test_domain_transfer_sidn_request(): void
     {
-        $request = new DomainTransferRequest('example.com');
+        $request = new DomainQueryTransferRequest('example.com');
 
         $request->addEppExtension('sidn-ext-epp', 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0');
         $request->setClientTransactionIdentifier('ABC-12345');
