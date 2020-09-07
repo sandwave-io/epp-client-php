@@ -1,6 +1,6 @@
 {
     "name": "sandwave-io/epp-client-php",
-    "description": "A base EPP Client that complies with RFC 5730, 5731, 5732, 5733, and 5734.",
+    "description": "A base EPP Client that complies with RFC 5730, 5731 and 5733.",
     "type": "library",
     "license": "MIT",
     "authors": [

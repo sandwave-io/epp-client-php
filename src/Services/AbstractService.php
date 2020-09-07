@@ -15,6 +15,7 @@ use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainInfoResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainTransferResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\LoginResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\LogoutResponse;
+use SandwaveIo\EppClient\Exceptions\ConnectException;
 
 abstract class AbstractService
 {
@@ -62,8 +63,14 @@ abstract class AbstractService
 
     public function login(string $username, string $password): LoginResponse
     {
-        $request = new LoginRequest($username, $password);
-        return new LoginResponse($this->request($request));
+        $request  = new LoginRequest($username, $password);
+        $response = new LoginResponse($this->request($request));
+
+        if (! $response->isSuccess()) {
+            throw new ConnectException("Cannot authenticate with EPP backend: [{$response->getResultCode()}] {$response->getResultMessage()}.");
+        }
+
+        return $response;
     }
 
     public function logout(): LogoutResponse
