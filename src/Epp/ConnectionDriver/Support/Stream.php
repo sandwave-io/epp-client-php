@@ -100,7 +100,7 @@ class Stream
         }
 
         // Consume the first package from the connection.
-        $this->read();
+        $this->read(); // TODO: Dit is recursief gedrag.
 
         return $content;
     }

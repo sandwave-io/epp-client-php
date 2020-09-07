@@ -39,7 +39,7 @@ abstract class AbstractService
         $this->overrideTransactionId = $overrideTransactionId;
     }
 
-    // EPP Requests
+    // EPP Query Requests
 
     public function checkDomains(array $domains): DomainCheckResponse
     {
@@ -58,6 +58,10 @@ abstract class AbstractService
         $request = new DomainTransferRequest($domain, $domainPassword, $registrantObjectId);
         return new DomainTransferResponse($this->authenticatedRequest($request));
     }
+
+    // EPP Transform Requests
+
+
 
     // Authentication
 
@@ -79,14 +83,14 @@ abstract class AbstractService
         return new LogoutResponse($this->request($request));
     }
 
+    // Internal functions
+
     protected function request(Request $request, ?string $transactionId = null): Document
     {
         $transactionId = $transactionId ?? $this->generateTransactionId();
         $request->setClientTransactionIdentifier($transactionId);
         return $this->connection->execute($request, $transactionId);
     }
-
-    // Internal functions
 
     protected function authenticatedRequest(Request $request, ?string $transactionId = null): Document
     {
