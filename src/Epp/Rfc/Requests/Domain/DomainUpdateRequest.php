@@ -52,15 +52,16 @@ class DomainUpdateRequest extends Request
 
     /**
      * DomainUpdateRequest constructor.
-     * @param string $domain
-     * @param array<string>|null $addNameservers
+     *
+     * @param string                    $domain
+     * @param array<string>|null        $addNameservers
      * @param array<string,string>|null $addContacts
      * @param array<string,string>|null $addStatuses
-     * @param array<string>|null $removeNameservers
+     * @param array<string>|null        $removeNameservers
      * @param array<string,string>|null $removeContacts
      * @param array<string,string>|null $removeStatuses
-     * @param string|null $changeRegistrant
-     * @param string|null $changePassword
+     * @param string|null               $changeRegistrant
+     * @param string|null               $changePassword
      */
     public function __construct(
         string $domain,
@@ -96,9 +97,9 @@ class DomainUpdateRequest extends Request
                         $this->renderAdditions(),
                         $this->renderRemovals(),
                         $this->renderChanges(),
-                    ])
+                    ]),
                 ]),
-                
+
                 $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
             ]),
         ], null, $this->extensions);
@@ -159,10 +160,9 @@ class DomainUpdateRequest extends Request
         }
         if ($this->changePassword) {
             $changes[] = DomainAuthInfo::render([
-                DomainPassword::render([], $this->changePassword)
+                DomainPassword::render([], $this->changePassword),
             ]);
         }
-
 
         return count($changes) === 0 ? null : DomainChg::render($changes);
     }

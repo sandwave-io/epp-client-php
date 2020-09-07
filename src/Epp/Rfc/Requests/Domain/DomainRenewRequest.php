@@ -43,7 +43,7 @@ class DomainRenewRequest extends Request
                         DomainName::render([], $this->domain),
                         DomainCurrentExpirationDate::render([], $this->currentExpirationDate->format('Y-m-d')),
                         $this->renewalPeriod ? DomainPeriod::render([], (string) $this->renewalPeriod, ['unit' => 'y']) : null,
-                    ])
+                    ]),
                 ]),
 
                 $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,

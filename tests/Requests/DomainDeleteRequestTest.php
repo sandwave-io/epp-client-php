@@ -2,7 +2,6 @@
 
 namespace SandwaveIo\EppClient\Tests\Requests;
 
-use Carbon\Carbon;
 use PHPUnit\Framework\TestCase;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainDeleteRequest;
 

@@ -9,7 +9,6 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Create;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainAuthInfo;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainContact;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainCreate;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainDelete;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainHostObject;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainName;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainNameservers;

@@ -87,8 +87,7 @@ abstract class AbstractService
         ?string $registrant = null,
         ?array $contacts = null,
         ?string $password = null
-    ): DomainCreateResponse
-    {
+    ): DomainCreateResponse {
         $request = new DomainCreateRequest($domain, $period, $nameservers, $registrant, $contacts, $password);
         return new DomainCreateResponse($this->authenticatedRequest($request));
     }
@@ -106,10 +105,10 @@ abstract class AbstractService
     }
 
     /**
-     * @param string $domain
-     * @param string $password
+     * @param string      $domain
+     * @param string      $password
      * @param string|null $repositoryObjectId ID of contact or registrant if the password belongs to either such an entity.
-     * @param int|null $period
+     * @param int|null    $period
      */
     public function transferDomain(string $domain, string $password, ?string $repositoryObjectId = null, ?int $period = null): DomainRequestTransferResponse
     {

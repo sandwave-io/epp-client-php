@@ -4,7 +4,6 @@ namespace SandwaveIo\EppClient\Tests\Requests;
 
 use PHPUnit\Framework\TestCase;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainRequestTransferRequest;
-use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainUpdateRequest;
 
 class DomainRequestTransferRequestTest extends TestCase
 {
