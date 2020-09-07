@@ -69,16 +69,12 @@ class DomainInfoResponse extends Response
     /** @return array<string> */
     public function getNameServers(): array
     {
-        if ($this->document->getElementsByTagName('ns')->count() === 0) {
+        if (! $parent = $this->document->getElementsByTagName('ns')->item(0)) {
             return [];
         }
-        $list = $this->document
-            ->getElementsByTagName('ns')
-            ->item(0)
-            ->childNodes;
         $nameservers = [];
 
-        foreach ($list as $item) {
+        foreach ($parent->childNodes as $item) {
             if ($item instanceof DOMElement && $item->localName === 'hostObj') {
                 $nameservers[] = trim($item->textContent);
             }
@@ -163,15 +159,11 @@ class DomainInfoResponse extends Response
 
     public function getPassword(): ?string
     {
-        if ($this->document->getElementsByTagName('authInfo')->count() === 0) {
+        if (! $parent = $this->document->getElementsByTagName('authInfo')->item(0)) {
             return null;
         }
-        $list = $this->document
-            ->getElementsByTagName('authInfo')
-            ->item(0)
-            ->childNodes;
 
-        foreach ($list as $item) {
+        foreach ($parent->childNodes as $item) {
             if ($item instanceof DOMElement && $item->localName === 'pw') {
                 return trim($item->textContent);
             }
