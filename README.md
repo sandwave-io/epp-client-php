@@ -14,9 +14,7 @@ This client implements several registries using their EPP API. The base implemen
 
 * [RFC 5730](https://tools.ietf.org/html/rfc5730)
 * [RFC 5731](https://tools.ietf.org/html/rfc5731)
-* [RFC 5732](https://tools.ietf.org/html/rfc5732)
 * [RFC 5733](https://tools.ietf.org/html/rfc5733)
-* [RFC 5734](https://tools.ietf.org/html/rfc5734)
 
 Are you missing functionality? Feel free to create an issue, or hit us up with a pull request.
 
