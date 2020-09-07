@@ -5,8 +5,8 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Requests;
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Logout;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Logout\Logout;
 
 class LogoutRequest extends Request
 {

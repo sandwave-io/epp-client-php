@@ -3,7 +3,7 @@
 namespace SandwaveIo\EppClient\Tests\Requests;
 
 use PHPUnit\Framework\TestCase;
-use SandwaveIo\EppClient\Epp\Rfc\Requests\DomainInfoRequest;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainInfoRequest;
 
 class DomainInfoRequestTest extends TestCase
 {
