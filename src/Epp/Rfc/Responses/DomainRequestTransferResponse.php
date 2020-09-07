@@ -4,7 +4,7 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Responses;
 
 use Carbon\Carbon;
 
-class DomainQueryTransferResponse extends Response
+class DomainRequestTransferResponse extends Response
 {
     public function getDomainName(): string
     {
