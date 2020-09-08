@@ -4,5 +4,4 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Responses;
 
 class ContactUpdateResponse extends Response
 {
-    //TODO: Implement and test this.
 }

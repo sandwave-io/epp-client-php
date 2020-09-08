@@ -4,5 +4,4 @@ namespace SandwaveIo\EppClient\Epp\Rfc\Responses;
 
 class ContactDeleteResponse extends Response
 {
-    //TODO: Implement and test this.
 }
