@@ -21,7 +21,7 @@ class ContactPostalInfo
     const TYPE_INTERNATIONALIZED = 'int';
     const TYPE_LOCALIZED = 'loc';
 
-    /** @var string */
+    /** @var string|null */
     public $name;
 
     /** @var string */
@@ -52,7 +52,7 @@ class ContactPostalInfo
     public $type;
 
     public function __construct(
-        string $name,
+        ?string $name,
         string $city,
         string $countryCode,
         ?string $organization,
@@ -86,14 +86,10 @@ class ContactPostalInfo
         }
 
         // Required data
-        $nameTag        = $domainCheckData->getElementsByTagName('name')->item(0);
         $cityTag        = $domainCheckData->getElementsByTagName('city')->item(0);
         $countryCodeTag = $domainCheckData->getElementsByTagName('cc')->item(0);
         $streetLine1    = $domainCheckData->getElementsByTagName('street')->item(0);
 
-        if (! $nameTag instanceof DOMElement) {
-            throw new InvalidArgumentException('<contact:name /> is required.');
-        }
         if (! $cityTag instanceof DOMElement) {
             throw new InvalidArgumentException('<contact:city /> is required.');
         }
@@ -105,6 +101,7 @@ class ContactPostalInfo
         }
 
         // Optional data
+        $nameTag         = $domainCheckData->getElementsByTagName('name')->item(0);
         $organization    = $domainCheckData->getElementsByTagName('org')->item(0);
         $streetLine2     = $domainCheckData->getElementsByTagName('street')->item(1);
         $streetLine3     = $domainCheckData->getElementsByTagName('street')->item(2);
@@ -113,15 +110,15 @@ class ContactPostalInfo
         $type            = $domainCheckData->getAttribute('type');
 
         return new ContactPostalInfo(
-            trim($nameTag->textContent),
+            $nameTag !== null ? trim($nameTag->textContent) : null,
             trim($cityTag->textContent),
             trim($countryCodeTag->textContent),
-            $organization ? trim($organization->textContent) : null,
+            $organization !== null ? trim($organization->textContent) : null,
             trim($streetLine1->textContent),
-            $streetLine2 ? trim($streetLine2->textContent) : null,
-            $streetLine3 ? trim($streetLine3->textContent) : null,
-            $stateOrProvince ? trim($stateOrProvince->textContent) : null,
-            $postalCode ? trim($postalCode->textContent) : null,
+            $streetLine2 !== null ? trim($streetLine2->textContent) : null,
+            $streetLine3 !== null ? trim($streetLine3->textContent) : null,
+            $stateOrProvince !== null ? trim($stateOrProvince->textContent) : null,
+            $postalCode !== null ? trim($postalCode->textContent) : null,
             $type
         );
     }
@@ -135,16 +132,16 @@ class ContactPostalInfo
 
         return ContactPostalInfoElement::render([
 
-            ContactName::render([], $this->name),
-            $this->organization ? ContactOrganization::render([], $this->organization) : null,
+            $this->name !== null ? ContactName::render([], $this->name) : null,
+            $this->organization !== null ? ContactOrganization::render([], $this->organization) : null,
 
             ContactAddress::render([
                 ContactStreet::render([], $this->streetLine1),
-                $this->streetLine2 ? ContactStreet::render([], $this->streetLine2) : null,
-                $this->streetLine3 ? ContactStreet::render([], $this->streetLine3) : null,
+                $this->streetLine2 !== null ? ContactStreet::render([], $this->streetLine2) : null,
+                $this->streetLine3 !== null ? ContactStreet::render([], $this->streetLine3) : null,
                 ContactCity::render([], $this->city),
-                $this->stateOrProvince ? ContactStateOrProvince::render([], $this->stateOrProvince) : null,
-                $this->postalCode ? ContactPostalCode::render([], $this->postalCode) : null,
+                $this->stateOrProvince !== null ? ContactStateOrProvince::render([], $this->stateOrProvince) : null,
+                $this->postalCode !== null ? ContactPostalCode::render([], $this->postalCode) : null,
                 ContactCountryCode::render([], $this->countryCode),
             ]),
 
