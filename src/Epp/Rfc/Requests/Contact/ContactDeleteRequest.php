@@ -6,12 +6,8 @@ use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Delete;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Info;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactAuthInfo;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactDelete;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactId;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactInfo;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactPassword;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
 

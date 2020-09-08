@@ -7,7 +7,6 @@ use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactRequestTransferRequest;
 
 class ContactRequestTransferRequestTest extends TestCase
 {
-
     public function test_contact_transfer_password_request(): void
     {
         $request = new ContactRequestTransferRequest('sh8013', '2fooBAR');

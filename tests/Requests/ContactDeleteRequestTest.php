@@ -7,7 +7,6 @@ use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactDeleteRequest;
 
 class ContactDeleteRequestTest extends TestCase
 {
-
     public function test_contact_delete_request(): void
     {
         $request = new ContactDeleteRequest('sh8013');

@@ -1,8 +1,6 @@
-<?php
-
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Epp\Rfc\Responses\Objects;
-
 
 use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\Address\ContactAddress;
@@ -15,6 +13,7 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactName;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactOrganization;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactPostalInfo as ContactPostalInfoElement;
 use SandwaveIo\EppClient\Exceptions\EppXmlException;
+use SandwaveIo\EppClient\Exceptions\InvalidArgumentException;
 use Webmozart\Assert\Assert;
 
 class ContactPostalInfo
@@ -52,7 +51,6 @@ class ContactPostalInfo
     /** @var string */
     public $type;
 
-
     public function __construct(
         string $name,
         string $city,
@@ -77,7 +75,7 @@ class ContactPostalInfo
         $this->postalCode = $postalCode;
 
         $types = [ContactPostalInfo::TYPE_INTERNATIONALIZED, ContactPostalInfo::TYPE_LOCALIZED];
-        Assert::inArray($type, $types, sprintf("Type must be one of (%s)", implode(', ', $types)));
+        Assert::inArray($type, $types, sprintf('Type must be one of (%s)', implode(', ', $types)));
         $this->type = $type;
     }
 
@@ -93,10 +91,18 @@ class ContactPostalInfo
         $countryCodeTag = $domainCheckData->getElementsByTagName('cc')->item(0);
         $streetLine1    = $domainCheckData->getElementsByTagName('street')->item(0);
 
-        Assert::notNull($nameTag, '<contact:name /> is required.');
-        Assert::notNull($cityTag, '<contact:city /> is required.');
-        Assert::notNull($countryCodeTag, '<contact:cc /> is required.');
-        Assert::notNull($streetLine1, 'At least one <contact:street /> is required.');
+        if (! $nameTag instanceof DOMElement) {
+            throw new InvalidArgumentException('<contact:name /> is required.');
+        }
+        if (! $cityTag instanceof DOMElement) {
+            throw new InvalidArgumentException('<contact:city /> is required.');
+        }
+        if (! $countryCodeTag instanceof DOMElement) {
+            throw new InvalidArgumentException('<contact:cc /> is required.');
+        }
+        if (! $streetLine1 instanceof DOMElement) {
+            throw new InvalidArgumentException('At least one <contact:street /> is required.');
+        }
 
         // Optional data
         $organization    = $domainCheckData->getElementsByTagName('org')->item(0);
@@ -107,15 +113,15 @@ class ContactPostalInfo
         $type            = $domainCheckData->getAttribute('type');
 
         return new ContactPostalInfo(
-            $nameTag,
-            $cityTag,
-            $countryCodeTag,
-            $organization,
-            $streetLine1,
-            $streetLine2,
-            $streetLine3,
-            $stateOrProvince,
-            $postalCode,
+            trim($nameTag->textContent),
+            trim($cityTag->textContent),
+            trim($countryCodeTag->textContent),
+            $organization ? trim($organization->textContent) : null,
+            trim($streetLine1->textContent),
+            $streetLine2 ? trim($streetLine2->textContent) : null,
+            $streetLine3 ? trim($streetLine3->textContent) : null,
+            $stateOrProvince ? trim($stateOrProvince->textContent) : null,
+            $postalCode ? trim($postalCode->textContent) : null,
             $type
         );
     }
@@ -124,7 +130,7 @@ class ContactPostalInfo
     {
         if ($overrideType) {
             $types = [ContactPostalInfo::TYPE_INTERNATIONALIZED, ContactPostalInfo::TYPE_LOCALIZED];
-            Assert::inArray($overrideType, $types, sprintf("Type must be one of (%s)", implode(', ', $types)));
+            Assert::inArray($overrideType, $types, sprintf('Type must be one of (%s)', implode(', ', $types)));
         }
 
         return ContactPostalInfoElement::render([

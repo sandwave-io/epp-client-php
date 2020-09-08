@@ -8,7 +8,6 @@ use SandwaveIo\EppClient\Epp\Rfc\Responses\Objects\ContactPostalInfo;
 
 class ContactCreateRequestTest extends TestCase
 {
-
     public function test_contact_create_request(): void
     {
         $request = new ContactCreateRequest(

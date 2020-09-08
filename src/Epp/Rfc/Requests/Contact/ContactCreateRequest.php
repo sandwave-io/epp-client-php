@@ -6,17 +6,13 @@ use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\ClientTransactionIdentifier;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Create;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Delete;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Info;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\Address\ContactAddress;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactAuthInfo;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactCreate;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactDelete;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactDisclosure;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactEmail;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactFax;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactId;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactInfo;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactName;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactOrganization;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactPassword;
@@ -38,7 +34,6 @@ class ContactCreateRequest extends Request
     const DISCLOSE_VOICE    = '<contact:voice/>';
     const DISCLOSE_FAX      = '<contact:fax/>';
     const DISCLOSE_EMAIL    = '<contact:email/>';
-
 
     /** @var string */
     private $contact;
@@ -93,7 +88,7 @@ class ContactCreateRequest extends Request
         if (is_null($internationalAddress) && is_null($localAddress)) {
             throw new InvalidArgumentException('At leas one of $internationalAddress and $localAddress must be set.');
         }
-        if (!is_null($disclosure) && is_null($doDisclose)) {
+        if (! is_null($disclosure) && is_null($doDisclose)) {
             throw new InvalidArgumentException('When disclosing elements, $doDisclose MUST be set.');
         }
         if ($disclosure) {
@@ -149,14 +144,14 @@ class ContactCreateRequest extends Request
                         ]),
 
                         $this->disclosure
-                            ?   ContactDisclosure::render(
-                                    array_map(function (string $disclosure) {
+                            ? ContactDisclosure::render(
+                                array_map(function (string $disclosure) {
                                         return $this->renderDisclosureElement($disclosure);
                                     }, $this->disclosure),
-                                    null,
-                                    ['flag' => $this->doDisclose ? '1' : '0']
-                                )
-                            : null
+                                null,
+                                ['flag' => $this->doDisclose ? '1' : '0']
+                            )
+                            : null,
                     ]),
                 ]),
                 $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
@@ -196,6 +191,6 @@ class ContactCreateRequest extends Request
                 return ContactEmail::render();
         }
 
-        throw new InvalidArgumentException("Given disclosure element does not exist.");
+        throw new InvalidArgumentException('Given disclosure element does not exist.');
     }
 }

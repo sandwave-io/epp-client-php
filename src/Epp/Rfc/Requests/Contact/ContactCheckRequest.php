@@ -8,8 +8,6 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Command;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Commands\Check;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactCheck;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactId;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainCheck;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainName;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
 

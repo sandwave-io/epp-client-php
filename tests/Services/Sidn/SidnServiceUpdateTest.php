@@ -2,7 +2,6 @@
 
 namespace SandwaveIo\EppClient\Tests\Services\Sidn;
 
-use Carbon\Carbon;
 use PHPUnit\Framework\TestCase;
 use SandwaveIo\EppClient\Epp\Connection;
 use SandwaveIo\EppClient\Services\SidnService;
