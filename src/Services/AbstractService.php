@@ -5,7 +5,6 @@ namespace SandwaveIo\EppClient\Services;
 use Carbon\Carbon;
 use SandwaveIo\EppClient\Epp\Connection;
 use SandwaveIo\EppClient\Epp\Rfc\Document;
-use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactUpdate;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactCheckRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactCreateRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactDeleteRequest;
@@ -283,8 +282,7 @@ abstract class AbstractService
         ?string $fax = null,
         ?array $disclosedFields = null,
         ?bool $doDisclosure = null
-    ): ContactUpdateResponse
-    {
+    ): ContactUpdateResponse {
         $request = new ContactUpdateRequest(
             $contact,
             null,

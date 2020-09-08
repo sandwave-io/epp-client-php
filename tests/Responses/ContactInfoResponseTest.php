@@ -19,7 +19,7 @@ class ContactInfoResponseTest extends TestCase
         $this->assertSame('ABC-12345', $response->getClientTransactionIdentifier(), 'Failed assertion on clTRID text.');
         $this->assertSame('54322-XYZ', $response->getServerTransactionIdentifier(), 'Failed assertion on svTRID text.');
 
-        $this->assertEquals('sh8013', $response->getContactId());
-        $this->assertEquals('2fooBAR', $response->getPassword());
+        $this->assertSame('sh8013', $response->getContactId());
+        $this->assertSame('2fooBAR', $response->getPassword());
     }
 }

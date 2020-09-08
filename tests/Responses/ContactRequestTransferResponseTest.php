@@ -20,7 +20,7 @@ class ContactRequestTransferResponseTest extends TestCase
         $this->assertSame('ABC-12345', $response->getClientTransactionIdentifier(), 'Failed assertion on clTRID text.');
         $this->assertSame('54322-XYZ', $response->getServerTransactionIdentifier(), 'Failed assertion on svTRID text.');
 
-        $this->assertEquals('sh8013', $response->getContactId());
+        $this->assertSame('sh8013', $response->getContactId());
         $this->assertSame('pending', $response->getTransferStatus());
         $this->assertSame('ClientX', $response->getRequestClientId());
         $this->assertInstanceOf(Carbon::class, $response->getRequestDate());
