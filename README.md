@@ -28,6 +28,25 @@ Are you missing functionality? Feel free to create an issue, or hit us up with a
 composer require sandwave-io/epp-client-php
 ```
 
+```php
+use SandwaveIo\EppClient\Epp\Connection;
+use SandwaveIo\EppClient\Epp\ConnectionDriver\HttpsConnectionDriver;
+use SandwaveIo\EppClient\Services\SidnService;
+
+$driver = new HttpsConnectionDriver('test.domain-registry.nl', 12345);
+$service = new SidnService(new Connection($driver), 'admin', 'secret');
+
+$availability = $service->checkDomains(['example.com', 'example.net', 'example.org']);
+
+foreach ($availability as $domainCheck) {
+    if ($domainCheck->isAvailable) {
+        echo "Domain: {$domainCheck->domain} AVAILABLE\n";
+    } else {
+        echo "Domain: {$domainCheck->domain} TAKEN. Reason: {$domainCheck->reason}\n";
+    }
+}
+```
+
 ## How to contribute
 
 Feel free to create a PR if you have any ideas for improvements. Or create an issue.
