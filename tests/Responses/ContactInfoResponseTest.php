@@ -2,6 +2,7 @@
 
 namespace SandwaveIo\EppClient\Tests\Responses;
 
+use Carbon\Carbon;
 use PHPUnit\Framework\TestCase;
 use SandwaveIo\EppClient\Epp\Rfc\Document;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactInfoResponse;
@@ -20,6 +21,21 @@ class ContactInfoResponseTest extends TestCase
         $this->assertSame('54322-XYZ', $response->getServerTransactionIdentifier(), 'Failed assertion on svTRID text.');
 
         $this->assertSame('sh8013', $response->getContactId());
+        $this->assertSame('2fooBAR', $response->getPassword());
+
+        $this->assertSame('SH8013-REP', $response->getRepositoryObjectIdentifier());
+        $this->assertSame(['linked', 'clientDeleteProhibited'], $response->getStatuses());
+
+        // TODO: Add contact assertions
+
+        $this->assertSame('ClientY', $response->getClientId());
+        $this->assertSame('ClientX', $response->getCreationClientId());
+        $this->assertSame('ClientX', $response->getLastUpdateClientId());
+
+        $this->assertInstanceOf(Carbon::class, $response->getCreatedDate());
+        $this->assertInstanceOf(Carbon::class, $response->getUpdatedDate());
+        $this->assertInstanceOf(Carbon::class, $response->getTransferedDate());
+
         $this->assertSame('2fooBAR', $response->getPassword());
     }
 }
