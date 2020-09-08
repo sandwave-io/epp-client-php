@@ -17,6 +17,7 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactId;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactName;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactOrganization;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactPassword;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactRem;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactStatus;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactUpdate;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactVoice;
@@ -93,7 +94,7 @@ class ContactUpdateRequest extends Request
         $this->disclosure = $updateDisclosure;
         $this->doDisclose = $updateDoDisclose;
 
-        if (is_null($updateInternationalAddress) && is_null($updateLocalAddress)) {
+        if (is_null($updateInternationalAddress) && is_null($updateLocalAddress) && ($this->password || $this->internationalAddress || $this->localAddress || $this->voice || $this->fax)) {
             throw new InvalidArgumentException('At leas one of $updateInternationalAddress and $updateLocalAddress must be set.');
         }
         if (! is_null($updateDisclosure) && is_null($updateDoDisclose)) {
@@ -136,7 +137,7 @@ class ContactUpdateRequest extends Request
                             : null,
 
                         $this->removeStatuses
-                            ? ContactAdd::render(array_map(function (string $status) {
+                            ? ContactRem::render(array_map(function (string $status) {
                                 return ContactStatus::render([], null, ['s' => $status]);
                             }, $this->removeStatuses))
                             : null,

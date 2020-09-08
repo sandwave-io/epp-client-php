@@ -5,12 +5,14 @@ namespace SandwaveIo\EppClient\Services;
 use Carbon\Carbon;
 use SandwaveIo\EppClient\Epp\Connection;
 use SandwaveIo\EppClient\Epp\Rfc\Document;
+use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactUpdate;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactCheckRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactCreateRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactDeleteRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactInfoRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactQueryTransferRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactRequestTransferRequest;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactUpdateRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainCheckRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainCreateRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainDeleteRequest;
@@ -28,6 +30,7 @@ use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactDeleteResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactInfoResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactQueryTransferResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactRequestTransferResponse;
+use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactUpdateResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainCheckResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainCreateResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainDeleteResponse;
@@ -253,13 +256,49 @@ abstract class AbstractService
         return new ContactDeleteResponse($this->authenticatedRequest($request));
     }
 
-    public function transferContact(string $domain, string $password): ContactRequestTransferResponse
+    public function transferContact(string $contact, string $password): ContactRequestTransferResponse
     {
-        $request = new ContactRequestTransferRequest($domain, $password);
+        $request = new ContactRequestTransferRequest($contact, $password);
         return new ContactRequestTransferResponse($this->authenticatedRequest($request));
     }
 
-    // TODO: Update contact methods.
+    public function addContactStatus(string $contact, string $status): ContactUpdateResponse
+    {
+        $request = new ContactUpdateRequest($contact, [$status]);
+        return new ContactUpdateResponse($this->authenticatedRequest($request));
+    }
+
+    public function removeContactStatus(string $contact, string $status): ContactUpdateResponse
+    {
+        $request = new ContactUpdateRequest($contact, null, [$status]);
+        return new ContactUpdateResponse($this->authenticatedRequest($request));
+    }
+
+    public function updateContact(
+        string $contact,
+        ?string $password = null,
+        ?ContactPostalInfo $internationalizedAddress = null,
+        ?ContactPostalInfo $localizedAddress = null,
+        ?string $voice = null,
+        ?string $fax = null,
+        ?array $disclosedFields = null,
+        ?bool $doDisclosure = null
+    ): ContactUpdateResponse
+    {
+        $request = new ContactUpdateRequest(
+            $contact,
+            null,
+            null,
+            $password,
+            $internationalizedAddress,
+            $localizedAddress,
+            $voice,
+            $fax,
+            $disclosedFields,
+            $doDisclosure
+        );
+        return new ContactUpdateResponse($this->authenticatedRequest($request));
+    }
 
     // Authentication
 
