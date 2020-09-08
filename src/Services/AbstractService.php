@@ -5,6 +5,12 @@ namespace SandwaveIo\EppClient\Services;
 use Carbon\Carbon;
 use SandwaveIo\EppClient\Epp\Connection;
 use SandwaveIo\EppClient\Epp\Rfc\Document;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactCheckRequest;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactCreateRequest;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactDeleteRequest;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactInfoRequest;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactQueryTransferRequest;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactRequestTransferRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainCheckRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainCreateRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainDeleteRequest;
@@ -16,6 +22,12 @@ use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainUpdateRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\LoginRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\LogoutRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
+use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactCheckResponse;
+use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactCreateResponse;
+use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactDeleteResponse;
+use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactInfoResponse;
+use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactQueryTransferResponse;
+use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactRequestTransferResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainCheckResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainCreateResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainDeleteResponse;
@@ -26,7 +38,9 @@ use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainRequestTransferResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainUpdateResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\LoginResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\LogoutResponse;
+use SandwaveIo\EppClient\Epp\Rfc\Responses\Objects\ContactPostalInfo;
 use SandwaveIo\EppClient\Exceptions\ConnectException;
+use Webmozart\Assert\Assert;
 
 abstract class AbstractService
 {
@@ -68,6 +82,24 @@ abstract class AbstractService
     {
         $request = new DomainQueryTransferRequest($domain, $domainPassword, $registrantObjectId);
         return new DomainQueryTransferResponse($this->authenticatedRequest($request));
+    }
+
+    public function checkContacts(array $contacts): ContactCheckResponse
+    {
+        $request = new ContactCheckRequest($contacts);
+        return new ContactCheckResponse($this->authenticatedRequest($request));
+    }
+
+    public function contactInfo(string $contact, ?string $password = null): ContactInfoResponse
+    {
+        $request = new ContactInfoRequest($contact, $password);
+        return new ContactInfoResponse($this->authenticatedRequest($request));
+    }
+
+    public function contactTransferStatus(string $domain, ?string $domainPassword = null): ContactQueryTransferResponse
+    {
+        $request = new ContactQueryTransferRequest($domain, $domainPassword);
+        return new ContactQueryTransferResponse($this->authenticatedRequest($request));
     }
 
     // EPP Transform Requests
@@ -182,6 +214,53 @@ abstract class AbstractService
         );
         return new DomainUpdateResponse($this->authenticatedRequest($request));
     }
+
+    public function createContact(
+        string $contact,
+        string $email,
+        string $password,
+        ?ContactPostalInfo $internationalAddress = null,
+        ?ContactPostalInfo $localAddress = null,
+        ?string $voice = null,
+        ?string $fax = null,
+        ?array $disclosure = null,
+        ?bool $doDisclose = null
+    ): ContactCreateResponse {
+
+        if ($internationalAddress) {
+            Assert::notNull($internationalAddress->name, 'An address must have a set name when creating a contact.');
+        }
+        if ($localAddress) {
+            Assert::notNull($localAddress->name, 'An address must have a set name when creating a contact.');
+        }
+
+        $request = new ContactCreateRequest(
+            $contact,
+            $email,
+            $password,
+            $internationalAddress,
+            $localAddress,
+            $voice,
+            $fax,
+            $disclosure,
+            $doDisclose
+        );
+        return new ContactCreateResponse($this->authenticatedRequest($request));
+    }
+
+    public function deleteContact(string $contact): ContactDeleteResponse
+    {
+        $request = new ContactDeleteRequest($contact);
+        return new ContactDeleteResponse($this->authenticatedRequest($request));
+    }
+
+    public function transferContact(string $domain, string $password): ContactRequestTransferResponse
+    {
+        $request = new ContactRequestTransferRequest($domain, $password);
+        return new ContactRequestTransferResponse($this->authenticatedRequest($request));
+    }
+
+    // TODO: Update contact methods.
 
     // Authentication
 
