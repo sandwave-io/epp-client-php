@@ -6,5 +6,5 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Element;
 
 final class ContactDisclosure extends Element
 {
-    public static $element = 'contact:disclosure';
+    public static $element = 'contact:disclose';
 }
