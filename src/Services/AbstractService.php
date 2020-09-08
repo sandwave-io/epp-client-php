@@ -226,7 +226,6 @@ abstract class AbstractService
         ?array $disclosure = null,
         ?bool $doDisclose = null
     ): ContactCreateResponse {
-
         if ($internationalAddress) {
             Assert::notNull($internationalAddress->name, 'An address must have a set name when creating a contact.');
         }
