@@ -56,7 +56,7 @@ class SidnServiceUpdateTest extends TestCase
 
         $service = new SidnService(new Connection($driver), 'admin', 'secret', 'ABC-12345');
 
-        $service->addContactStatus('sh8013', 'clientDeleteProhibited', '');
+        $service->addContactStatus('sh8013', 'clientDeleteProhibited');
     }
 
     public function test_rem_status(): void
@@ -69,6 +69,6 @@ class SidnServiceUpdateTest extends TestCase
 
         $service = new SidnService(new Connection($driver), 'admin', 'secret', 'ABC-12345');
 
-        $service->removeContactStatus('sh8013', 'clientDeleteProhibited', '');
+        $service->removeContactStatus('sh8013', 'clientDeleteProhibited');
     }
 }
