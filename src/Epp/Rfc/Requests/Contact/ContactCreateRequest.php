@@ -35,6 +35,12 @@ class ContactCreateRequest extends Request
     const DISCLOSE_FAX      = '<contact:fax/>';
     const DISCLOSE_EMAIL    = '<contact:email/>';
 
+    /** @var Objects\ContactPostalInfo|null */
+    protected $internationalAddress;
+
+    /** @var Objects\ContactPostalInfo|null */
+    protected $localAddress;
+
     /** @var string */
     private $contact;
 
@@ -43,12 +49,6 @@ class ContactCreateRequest extends Request
 
     /** @var string */
     private $password;
-
-    /** @var Objects\ContactPostalInfo|null */
-    private $internationalAddress;
-
-    /** @var Objects\ContactPostalInfo|null */
-    private $localAddress;
 
     /** @var string|null */
     private $voice;
@@ -146,14 +146,15 @@ class ContactCreateRequest extends Request
                         $this->disclosure
                             ? ContactDisclosure::render(
                                 array_map(function (string $disclosure) {
-                                        return $this->renderDisclosureElement($disclosure);
-                                    }, $this->disclosure),
+                                    return $this->renderDisclosureElement($disclosure);
+                                }, $this->disclosure),
                                 null,
                                 ['flag' => $this->doDisclose ? '1' : '0']
                             )
                             : null,
                     ]),
                 ]),
+                $this->renderExtension(),
                 $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
             ]),
         ], null, $this->extensions);

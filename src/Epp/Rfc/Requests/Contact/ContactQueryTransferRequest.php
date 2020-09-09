@@ -43,6 +43,7 @@ class ContactQueryTransferRequest extends Request
 
                     ]),
                 ], null, ['op' => 'query']),
+                $this->renderExtension(),
                 $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
             ]),
         ], null, $this->extensions);

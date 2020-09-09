@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <resData>
+      <domain:trnData
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.com</domain:name>
+        <domain:trStatus>pending</domain:trStatus>
+        <domain:reID>ClientX</domain:reID>
+        <domain:reDate>2000-06-06T22:00:00.0Z</domain:reDate>
+        <domain:acID>ClientY</domain:acID>
+        <domain:acDate>2000-06-11T22:00:00.0Z</domain:acDate>
+        <domain:exDate>2002-09-08T22:00:00.0Z</domain:exDate>
+      </domain:trnData>
+      <sidn-ext-epp:pollData>
+        <sidn-ext-epp:command>domain:transfer</sidn-ext-epp:command>
+        <sidn-ext-epp:data>
+          <result code="1000">
+            <msg>The domain name has been transferred.</msg>
+          </result>
+          <resData>
+            <domain:trnData>
+              <domain:name>testmetaregistrar1.nl</domain:name>
+              <domain:trStatus>serverApproved</domain:trStatus>
+              <domain:reID>GEENP</domain:reID>
+              <domain:reDate>2011-11-16T16:22:57.000Z</domain:reDate>
+              <domain:acID>X1837</domain:acID>
+              <domain:acDate>2011-11-16T16:22:57.941Z</domain:acDate>
+            </domain:trnData>
+          </resData>
+          <trID>
+            <svTRID>41910644</svTRID>
+          </trID>
+        </sidn-ext-epp:data>
+      </sidn-ext-epp:pollData>
+    </resData>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54322-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>

@@ -37,5 +37,11 @@ abstract class Request extends Document
         return $this;
     }
 
+    protected function renderExtension(): ?DOMelement
+    {
+        // This may be overwritten to render extensions.
+        return null;
+    }
+
     abstract protected function renderElements(): DOMElement;
 }

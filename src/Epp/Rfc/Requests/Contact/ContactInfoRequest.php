@@ -43,6 +43,7 @@ class ContactInfoRequest extends Request
 
                     ]),
                 ]),
+                $this->renderExtension(),
                 $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
             ]),
         ], null, $this->extensions);

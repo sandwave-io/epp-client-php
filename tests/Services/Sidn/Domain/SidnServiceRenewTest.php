@@ -20,6 +20,6 @@ class SidnServiceRenewTest extends TestCase
 
         $service = new SidnService(new Connection($driver), 'admin', 'secret', 'ABC-12345');
 
-        $service->renewDomain('example.com', new Carbon('2000-04-03'), 5);
+        $service->renewDomain('example.com', new Carbon('2000-04-03'), 60);
     }
 }

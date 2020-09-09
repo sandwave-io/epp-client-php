@@ -3,6 +3,7 @@
 namespace SandwaveIo\EppClient\Tests\Requests;
 
 use PHPUnit\Framework\TestCase;
+use SandwaveIo\EppClient\Epp\Extensions\Requests\Sidn\SidnContactCreateRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactCreateRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\Objects\ContactPostalInfo;
 
@@ -43,7 +44,7 @@ class ContactCreateRequestTest extends TestCase
 
     public function test_contact_create_sidn_request(): void
     {
-        $request = new ContactCreateRequest(
+        $request = new SidnContactCreateRequest(
             'sh8013',
             'jdoe@example.com',
             '2fooBAR',
@@ -72,6 +73,6 @@ class ContactCreateRequestTest extends TestCase
         $request->setClientTransactionIdentifier('ABC-12345');
 
         $xmlString = $request->renderAndAppendChildren()->toString();
-        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/../data/requests/contact_create_sidn.xml', $xmlString);
+        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/../data/requests/contact_create_business_sidn.xml', $xmlString);
     }
 }

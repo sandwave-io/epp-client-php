@@ -7,7 +7,6 @@
         <contact:id>sh8013</contact:id>
         <contact:postalInfo type="int">
           <contact:name>John Doe</contact:name>
-          <contact:org>Example Inc.</contact:org>
           <contact:addr>
             <contact:street>123 Example Dr.</contact:street>
             <contact:street>Suite 100</contact:street>
@@ -29,6 +28,15 @@
         </contact:disclose>
       </contact:create>
     </create>
+    <extension>
+      <sidn-ext-epp:ext>
+        <sidn-ext-epp:create>
+          <sidn-ext-epp:contact>
+            <sidn-ext-epp:legalForm>PERSOON</sidn-ext-epp:legalForm>
+          </sidn-ext-epp:contact>
+        </sidn-ext-epp:create>
+      </sidn-ext-epp:ext>
+    </extension>
     <clTRID>ABC-12345</clTRID>
   </command>
 </epp>
