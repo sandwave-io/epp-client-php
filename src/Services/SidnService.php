@@ -5,7 +5,7 @@ namespace SandwaveIo\EppClient\Services;
 use SandwaveIo\EppClient\Epp\Rfc\Document;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
 
-class SidnService extends AbstractService
+final class SidnService extends AbstractService
 {
     protected function request(Request $request, ?string $transactionId = null): Document
     {

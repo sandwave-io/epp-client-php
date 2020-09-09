@@ -22,6 +22,7 @@ class LogoutRequest extends Request
                 Logout::render(),
                 $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
             ]),
+            $this->renderExtension(),
         ], null, $this->extensions);
     }
 }

@@ -67,6 +67,7 @@ class DomainRequestTransferRequest extends Request
                     ]),
                 ], null, ['op' => 'request']),
 
+                $this->renderExtension(),
                 $this->clientTransactionIdentifier ? ClientTransactionIdentifier::render([], $this->clientTransactionIdentifier) : null,
             ]),
         ], null, $this->extensions);
