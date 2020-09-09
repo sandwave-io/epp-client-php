@@ -6,14 +6,17 @@ use Carbon\Carbon;
 use SandwaveIo\EppClient\Epp\Extensions\Requests\Sidn\SidnContactCreateRequest;
 use SandwaveIo\EppClient\Epp\Extensions\Requests\Sidn\SidnDomainRenewRequest;
 use SandwaveIo\EppClient\Epp\Extensions\Responses\Sidn\SidnDomainInfoResponse;
+use SandwaveIo\EppClient\Epp\Extensions\Responses\Sidn\SidnDomainQueryTransferResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Document;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactInfoRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainInfoRequest;
+use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainQueryTransferRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainRenewRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactCreateResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactInfoResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainInfoResponse;
+use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainQueryTransferResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainRenewResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\Objects\ContactPostalInfo;
 use Webmozart\Assert\Assert;
@@ -26,10 +29,18 @@ final class SidnService extends AbstractService
         return parent::request($request, $transactionId);
     }
 
+    /** @return SidnDomainInfoResponse */
     public function domainInfo(string $domain): DomainInfoResponse
     {
         $request = new DomainInfoRequest($domain);
         return new SidnDomainInfoResponse($this->authenticatedRequest($request));
+    }
+
+    /** @return SidnDomainQueryTransferResponse */
+    public function domainTransferStatus(string $domain, ?string $domainPassword = null, ?string $registrantObjectId = null): DomainQueryTransferResponse
+    {
+        $request = new DomainQueryTransferRequest($domain, $domainPassword, $registrantObjectId);
+        return new SidnDomainQueryTransferResponse($this->authenticatedRequest($request));
     }
 
     public function renewDomain(string $domain, Carbon $currentExpiryDate, ?int $period = null): DomainRenewResponse
