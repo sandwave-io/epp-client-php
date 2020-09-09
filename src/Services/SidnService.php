@@ -8,13 +8,10 @@ use SandwaveIo\EppClient\Epp\Extensions\Requests\Sidn\SidnDomainRenewRequest;
 use SandwaveIo\EppClient\Epp\Extensions\Responses\Sidn\SidnDomainInfoResponse;
 use SandwaveIo\EppClient\Epp\Extensions\Responses\Sidn\SidnDomainQueryTransferResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Document;
-use SandwaveIo\EppClient\Epp\Rfc\Requests\Contact\ContactInfoRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainInfoRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainQueryTransferRequest;
-use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainRenewRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactCreateResponse;
-use SandwaveIo\EppClient\Epp\Rfc\Responses\ContactInfoResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainInfoResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainQueryTransferResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainRenewResponse;
@@ -23,12 +20,6 @@ use Webmozart\Assert\Assert;
 
 final class SidnService extends AbstractService
 {
-    protected function request(Request $request, ?string $transactionId = null): Document
-    {
-        $request->addEppExtension('sidn-ext-epp', 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0');
-        return parent::request($request, $transactionId);
-    }
-
     /** @return SidnDomainInfoResponse */
     public function domainInfo(string $domain): DomainInfoResponse
     {
@@ -79,5 +70,11 @@ final class SidnService extends AbstractService
             $doDisclose
         );
         return new ContactCreateResponse($this->authenticatedRequest($request));
+    }
+
+    protected function request(Request $request, ?string $transactionId = null): Document
+    {
+        $request->addEppExtension('sidn-ext-epp', 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0');
+        return parent::request($request, $transactionId);
     }
 }

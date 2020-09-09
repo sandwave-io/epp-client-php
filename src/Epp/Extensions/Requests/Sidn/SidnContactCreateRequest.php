@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Epp\Extensions\Requests\Sidn;
 
@@ -21,7 +21,7 @@ class SidnContactCreateRequest extends ContactCreateRequest
      *       </sidn-ext-epp:contact>
      *     </sidn-ext-epp:create>
      *   </sidn-ext-epp:ext>
-     * </extension>
+     * </extension>.
      */
     public function renderExtension(): ?DOMelement
     {
@@ -39,10 +39,10 @@ class SidnContactCreateRequest extends ContactCreateRequest
             SidnExt::render([
                 SidnCreate::render([
                     SidnContact::render([
-                        SidnLegalForm::render([], $form)
-                    ])
-                ])
-            ])
+                        SidnLegalForm::render([], $form),
+                    ]),
+                ]),
+            ]),
         ]);
     }
 }
