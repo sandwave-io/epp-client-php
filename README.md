@@ -19,6 +19,7 @@ This client implements several registries using their EPP API. The base implemen
 The following registries are supported:
 
 * [**SIDN**](https://sidn.nl) (.nl)
+* [**Key Systems RRPPROXY**](https://www.rrpproxy.net/API/EPP)
 
 Are you missing functionality? Feel free to create an issue, or hit us up with a pull request.
 
