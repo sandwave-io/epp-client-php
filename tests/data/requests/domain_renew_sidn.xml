@@ -6,7 +6,7 @@
        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:name>example.com</domain:name>
         <domain:curExpDate>2000-04-03</domain:curExpDate>
-        <domain:period unit="y">5</domain:period>
+        <domain:period unit="m">60</domain:period>
       </domain:renew>
     </renew>
     <clTRID>ABC-12345</clTRID>

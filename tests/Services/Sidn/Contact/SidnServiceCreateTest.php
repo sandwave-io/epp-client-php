@@ -11,7 +11,43 @@ use SandwaveIo\EppClient\Tests\Services\Util\MockConnectionDriver;
 
 class SidnServiceCreateTest extends TestCase
 {
-    public function test_info(): void
+    public function test_create_business(): void
+    {
+        $driver = new MockConnectionDriver($this);
+
+        $driver->expectRequest(__DIR__ . '/../../../data/requests/login_sidn.xml', __DIR__ . '/../../../data/responses/login.xml');
+        $driver->expectRequest(__DIR__ . '/../../../data/requests/contact_create_business_sidn.xml', __DIR__ . '/../../../data/responses/contact_create.xml');
+        $driver->expectRequest(__DIR__ . '/../../../data/requests/logout_sidn.xml', __DIR__ . '/../../../data/responses/logout.xml');
+
+        $service = new SidnService(new Connection($driver), 'admin', 'secret', 'ABC-12345');
+
+        $service->createContact(
+            'sh8013',
+            'jdoe@example.com',
+            '2fooBAR',
+            new ContactPostalInfo(
+                'John Doe',
+                'Dulles',
+                'US',
+                'Example Inc.',
+                '123 Example Dr.',
+                'Suite 100',
+                null,
+                'VA',
+                '20166-6503'
+            ),
+            null,
+            '+1.7035555555',
+            '+1.7035555556',
+            [
+                ContactCreateRequest::DISCLOSE_VOICE,
+                ContactCreateRequest::DISCLOSE_EMAIL,
+            ],
+            false
+        );
+    }
+
+    public function test_create_personal(): void
     {
         $driver = new MockConnectionDriver($this);
 
@@ -29,7 +65,7 @@ class SidnServiceCreateTest extends TestCase
                 'John Doe',
                 'Dulles',
                 'US',
-                'Example Inc.',
+                null,
                 '123 Example Dr.',
                 'Suite 100',
                 null,

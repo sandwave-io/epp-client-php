@@ -16,6 +16,12 @@ use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
 
 class DomainRenewRequest extends Request
 {
+    const RENEWAL_UNIT_YEARS = 'y';
+    const RENEWAL_UNIT_MONTHS = 'm';
+
+    /** @var string */
+    protected $renewalUnit = DomainRenewRequest::RENEWAL_UNIT_YEARS;
+
     /** @var string */
     private $domain;
 
@@ -42,7 +48,7 @@ class DomainRenewRequest extends Request
                     DomainRenew::render([
                         DomainName::render([], $this->domain),
                         DomainCurrentExpirationDate::render([], $this->currentExpirationDate->format('Y-m-d')),
-                        $this->renewalPeriod ? DomainPeriod::render([], (string) $this->renewalPeriod, ['unit' => 'y']) : null,
+                        $this->renewalPeriod ? DomainPeriod::render([], (string) $this->renewalPeriod, ['unit' => $this->renewalUnit]) : null,
                     ]),
                 ]),
 

@@ -45,10 +45,10 @@ class ContactCreateRequest extends Request
     private $password;
 
     /** @var Objects\ContactPostalInfo|null */
-    private $internationalAddress;
+    protected $internationalAddress;
 
     /** @var Objects\ContactPostalInfo|null */
-    private $localAddress;
+    protected $localAddress;
 
     /** @var string|null */
     private $voice;

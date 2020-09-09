@@ -4,6 +4,7 @@ namespace SandwaveIo\EppClient\Tests\Requests;
 
 use Carbon\Carbon;
 use PHPUnit\Framework\TestCase;
+use SandwaveIo\EppClient\Epp\Extensions\Requests\Sidn\SidnDomainRenewRequest;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Domain\DomainRenewRequest;
 
 class DomainRenewRequestTest extends TestCase
@@ -24,10 +25,10 @@ class DomainRenewRequestTest extends TestCase
 
     public function test_domain_renew_sidn_request(): void
     {
-        $request = new DomainRenewRequest(
+        $request = new SidnDomainRenewRequest(
             'example.com',
             new Carbon('2000-04-03'),
-            5
+            60
         );
 
         $request->addEppExtension('sidn-ext-epp', 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0');
