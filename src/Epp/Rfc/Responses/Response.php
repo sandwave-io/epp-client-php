@@ -78,7 +78,7 @@ abstract class Response
     }
 
     /**
-     * Query the document like "epp.result.x"
+     * Query the document like "epp.result.x".
      */
     protected function get(string $query, ?DOMNodeList $context = null): ?DOMElement
     {

@@ -2,8 +2,6 @@
 
 namespace SandwaveIo\EppClient\Epp\Rfc\Responses;
 
-use DOMXPath;
-
 class LoginResponse extends Response
 {
 }
