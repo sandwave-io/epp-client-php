@@ -1,8 +1,6 @@
-<?php
-
+<?php declare(strict_types = 1);
 
 namespace SandwaveIo\EppClient\Tests\Responses\Extensions\Sidn;
-
 
 use Carbon\Carbon;
 use PHPUnit\Framework\TestCase;
@@ -13,7 +11,7 @@ class SidnDomainQueryTransferResponseTest extends TestCase
 {
     public function test_response(): void
     {
-        $response = new SidnDomainQueryTransferResponse(Document::fromString((string) file_get_contents(__DIR__.'/../../../data/responses/domain_transfer_sidn.xml')));
+        $response = new SidnDomainQueryTransferResponse(Document::fromString((string) file_get_contents(__DIR__ . '/../../../data/responses/domain_transfer_sidn.xml')));
 
         $this->assertTrue($response->isSuccess(), 'Failed asserting that response is successful.');
         $this->assertSame('1000', (string) $response->getResultCode(), 'Failed assertion on response code.');
