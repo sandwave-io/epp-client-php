@@ -16,6 +16,8 @@ class DomainRenewRequestTest extends TestCase
             new Carbon('2000-04-03'),
             5
         );
+        $request->addEppNamespace('domain', 'urn:ietf:params:xml:ns:domain-1.0');
+        $request->addEppNamespace('contact', 'urn:ietf:params:xml:ns:contact-1.0');
 
         $request->setClientTransactionIdentifier('ABC-12345');
 
@@ -30,6 +32,8 @@ class DomainRenewRequestTest extends TestCase
             new Carbon('2000-04-03'),
             60
         );
+        $request->addEppNamespace('domain', 'urn:ietf:params:xml:ns:domain-1.0');
+        $request->addEppNamespace('contact', 'urn:ietf:params:xml:ns:contact-1.0');
 
         $request->addEppNamespace('sidn-ext-epp', 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0');
         $request->setClientTransactionIdentifier('ABC-12345');

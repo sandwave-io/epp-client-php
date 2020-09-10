@@ -330,10 +330,6 @@ abstract class AbstractService
         $request->addEppNamespace('domain', 'urn:ietf:params:xml:ns:domain-1.0');
         $request->addEppNamespace('contact', 'urn:ietf:params:xml:ns:contact-1.0');
 
-        $request->addEppNamespace('sidn-ext-epp', 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0');
-        $request->addEppNamespace('domain', 'urn:ietf:params:xml:ns:domain-1.0');
-        $request->addEppNamespace('contact', 'urn:ietf:params:xml:ns:contact-1.0');
-
         return $this->connection->execute($request, $transactionId);
     }
 

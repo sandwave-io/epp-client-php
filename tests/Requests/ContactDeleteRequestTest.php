@@ -10,6 +10,8 @@ class ContactDeleteRequestTest extends TestCase
     public function test_contact_delete_request(): void
     {
         $request = new ContactDeleteRequest('sh8013');
+        $request->addEppNamespace('domain', 'urn:ietf:params:xml:ns:domain-1.0');
+        $request->addEppNamespace('contact', 'urn:ietf:params:xml:ns:contact-1.0');
 
         $request->setClientTransactionIdentifier('ABC-12345');
 
@@ -20,6 +22,8 @@ class ContactDeleteRequestTest extends TestCase
     public function test_contact_delete_sidn_request(): void
     {
         $request = new ContactDeleteRequest('sh8013');
+        $request->addEppNamespace('domain', 'urn:ietf:params:xml:ns:domain-1.0');
+        $request->addEppNamespace('contact', 'urn:ietf:params:xml:ns:contact-1.0');
 
         $request->addEppNamespace('sidn-ext-epp', 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0');
         $request->setClientTransactionIdentifier('ABC-12345');
