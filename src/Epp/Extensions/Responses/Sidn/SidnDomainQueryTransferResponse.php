@@ -2,106 +2,78 @@
 
 namespace SandwaveIo\EppClient\Epp\Extensions\Responses\Sidn;
 
+use DOMElement;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainQueryTransferResponse;
 
 class SidnDomainQueryTransferResponse extends DomainQueryTransferResponse
 {
     public function getPolledCommand(): ?string
     {
-        $result = $this->query('/epp:epp/epp:response/epp:resData/sidn-ext-epp:pollData/sidn-ext-epp:command');
-        if (! $item = $result->item(0)) {
-            return null;
-        }
-
-        return $item->nodeValue;
+        $result = $this->get('epp.response.resData.pollData.command');
+        assert($result instanceof DOMElement);
+        return trim($result->textContent);
     }
 
     public function getPolledResultCode(): ?string
     {
-        $result = $this->query('/epp:epp/epp:response/epp:resData/sidn-ext-epp:pollData/sidn-ext-epp:data/epp:result/@code');
-        foreach ($result as $code) {
-            return $code->nodeValue;
-        }
-        return null;
+        $resultElement = $this->get('epp.response.resData.pollData.data.result');
+        assert($resultElement instanceof DOMElement);
+        return $resultElement->getAttribute('code');
     }
 
     public function getPolledResultMessage(): ?string
     {
-        $result = $this->query('/epp:epp/epp:response/epp:resData/sidn-ext-epp:pollData/sidn-ext-epp:data/epp:result/epp:msg');
-        if (! $item = $result->item(0)) {
-            return null;
-        }
-
-        return $item->nodeValue;
+        $result = $this->get('epp.response.resData.pollData.data.result.msg');
+        assert($result instanceof DOMElement);
+        return trim($result->textContent);
     }
 
     public function getPolledDomainname(): ?string
     {
-        $result = $this->query('/epp:epp/epp:response/epp:resData/sidn-ext-epp:pollData/sidn-ext-epp:data/epp:resData/domain:trnData/domain:name');
-        if (! $item = $result->item(0)) {
-            return null;
-        }
-
-        return $item->nodeValue;
+        $result = $this->get('epp.response.resData.pollData.data.resData.trnData.name');
+        assert($result instanceof DOMElement);
+        return trim($result->textContent);
     }
 
     public function getPolledTransferStatus(): ?string
     {
-        $result = $this->query('/epp:epp/epp:response/epp:resData/sidn-ext-epp:pollData/sidn-ext-epp:data/epp:resData/domain:trnData/domain:trStatus');
-        if (! $item = $result->item(0)) {
-            return null;
-        }
-
-        return $item->nodeValue;
+        $result = $this->get('epp.response.resData.pollData.data.resData.trnData.trStatus');
+        assert($result instanceof DOMElement);
+        return trim($result->textContent);
     }
 
     public function getPolledRequestClientId(): ?string
     {
-        $result = $this->query('/epp:epp/epp:response/epp:resData/sidn-ext-epp:pollData/sidn-ext-epp:data/epp:resData/domain:trnData/domain:reID');
-        if (! $item = $result->item(0)) {
-            return null;
-        }
-
-        return $item->nodeValue;
+        $result = $this->get('epp.response.resData.pollData.data.resData.trnData.reID');
+        assert($result instanceof DOMElement);
+        return trim($result->textContent);
     }
 
     public function getPolledRequestDate(): ?string
     {
-        $result = $this->query('/epp:epp/epp:response/epp:resData/sidn-ext-epp:pollData/sidn-ext-epp:data/epp:resData/domain:trnData/domain:reDate');
-        if (! $item = $result->item(0)) {
-            return null;
-        }
-
-        return $item->nodeValue;
+        $result = $this->get('epp.response.resData.pollData.data.resData.trnData.reDate');
+        assert($result instanceof DOMElement);
+        return trim($result->textContent);
     }
 
     public function getPolledActionClientId(): ?string
     {
-        $result = $this->query('/epp:epp/epp:response/epp:resData/sidn-ext-epp:pollData/sidn-ext-epp:data/epp:resData/domain:trnData/domain:acID');
-        if (! $item = $result->item(0)) {
-            return null;
-        }
-
-        return $item->nodeValue;
+        $result = $this->get('epp.response.resData.pollData.data.resData.trnData.acID');
+        assert($result instanceof DOMElement);
+        return trim($result->textContent);
     }
 
     public function getPolledActionDate(): ?string
     {
-        $result = $this->query('/epp:epp/epp:response/epp:resData/sidn-ext-epp:pollData/sidn-ext-epp:data/epp:resData/domain:trnData/domain:acDate');
-        if (! $item = $result->item(0)) {
-            return null;
-        }
-
-        return $item->nodeValue;
+        $result = $this->get('epp.response.resData.pollData.data.resData.trnData.acDate');
+        assert($result instanceof DOMElement);
+        return trim($result->textContent);
     }
 
     public function getPolledTransactionId(): ?string
     {
-        $result = $this->query('/epp:epp/epp:response/epp:resData/sidn-ext-epp:pollData/sidn-ext-epp:data/epp:trID/epp:svTRID');
-        if (! $item = $result->item(0)) {
-            return null;
-        }
-
-        return $item->nodeValue;
+        $result = $this->get('epp.response.resData.pollData.data.trID.svTRID');
+        assert($result instanceof DOMElement);
+        return trim($result->textContent);
     }
 }
