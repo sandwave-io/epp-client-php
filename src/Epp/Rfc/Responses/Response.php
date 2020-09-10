@@ -26,22 +26,30 @@ abstract class Response
 
     public function getResultCode(): ResultCode
     {
-        return ResultCode::fromString($this->get('epp.response.result')->getAttribute('code'));
+        $result = $this->get('epp.response.result');
+        assert($result instanceof DOMElement);
+        return ResultCode::fromString($result->getAttribute('code'));
     }
 
     public function getResultMessage(): string
     {
-        return trim($this->get('epp.response.result')->textContent);
+        $result = $this->get('epp.response.result');
+        assert($result instanceof DOMElement);
+        return trim($result->textContent);
     }
 
     public function getClientTransactionIdentifier(): string
     {
-        return trim($this->get('epp.response.trID.clTRID')->textContent);
+        $result = $this->get('epp.response.trID.clTRID');
+        assert($result instanceof DOMElement);
+        return trim($result->textContent);
     }
 
     public function getServerTransactionIdentifier(): string
     {
-        return trim($this->get('epp.response.trID.svTRID')->textContent);
+        $result = $this->get('epp.response.trID.svTRID');
+        assert($result instanceof DOMElement);
+        return trim($result->textContent);
     }
 
     /** @deprecated User get instead. */
@@ -81,6 +89,9 @@ abstract class Response
         $query = explode('.', $query);
 
         foreach ($context as $node) {
+            if (! $node instanceof DOMElement) {
+                continue;
+            }
             if ($node->localName === $query[0]) {
                 if (count($query) === 1) {
                     return $node;
