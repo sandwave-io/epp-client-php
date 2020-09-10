@@ -26,24 +26,25 @@ abstract class Response
 
     public function getResultCode(): ResultCode
     {
-        return ResultCode::fromString($this->getElement('result')->getAttribute('code'));
+        return ResultCode::fromString($this->get('epp.response.result')->getAttribute('code'));
     }
 
     public function getResultMessage(): string
     {
-        return trim($this->getElement('result')->textContent);
+        return trim($this->get('epp.response.result')->textContent);
     }
 
     public function getClientTransactionIdentifier(): string
     {
-        return trim($this->getElement('clTRID')->textContent);
+        return trim($this->get('epp.response.trID.clTRID')->textContent);
     }
 
     public function getServerTransactionIdentifier(): string
     {
-        return trim($this->getElement('svTRID')->textContent);
+        return trim($this->get('epp.response.trID.svTRID')->textContent);
     }
 
+    /** @deprecated User get instead. */
     protected function getElement(string $tag): DOMElement
     {
         if (! $result = $this->document->getElementsByTagName($tag)->item(0)) {
@@ -58,12 +59,37 @@ abstract class Response
 
     protected function query(string $expression): DOMNodeList
     {
-        $result = (new DOMXPath($this->document))->query($expression);
+        $xpath  = new DOMXPath($this->document);
+        $result = $xpath->query($expression);
 
         if ($result === false) {
             throw new EppXmlException("DOMXPath query [{$expression}] had no results.");
         }
 
         return $result;
+    }
+
+    /**
+     * Query the document like "epp.result.x"
+     */
+    protected function get(string $query, ?DOMNodeList $context = null): ?DOMElement
+    {
+        if (! $context) {
+            $context = $this->document->childNodes;
+        }
+
+        $query = explode('.', $query);
+
+        foreach ($context as $node) {
+            if ($node->localName === $query[0]) {
+                if (count($query) === 1) {
+                    return $node;
+                }
+                array_shift($query);
+                return $this->get(implode('.', $query), $node->childNodes);
+            }
+        }
+
+        return null;
     }
 }
