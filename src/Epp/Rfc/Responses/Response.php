@@ -26,24 +26,33 @@ abstract class Response
 
     public function getResultCode(): ResultCode
     {
-        return ResultCode::fromString($this->getElement('result')->getAttribute('code'));
+        $result = $this->get('epp.response.result');
+        assert($result instanceof DOMElement);
+        return ResultCode::fromString($result->getAttribute('code'));
     }
 
     public function getResultMessage(): string
     {
-        return trim($this->getElement('result')->textContent);
+        $result = $this->get('epp.response.result');
+        assert($result instanceof DOMElement);
+        return trim($result->textContent);
     }
 
     public function getClientTransactionIdentifier(): string
     {
-        return trim($this->getElement('clTRID')->textContent);
+        $result = $this->get('epp.response.trID.clTRID');
+        assert($result instanceof DOMElement);
+        return trim($result->textContent);
     }
 
     public function getServerTransactionIdentifier(): string
     {
-        return trim($this->getElement('svTRID')->textContent);
+        $result = $this->get('epp.response.trID.svTRID');
+        assert($result instanceof DOMElement);
+        return trim($result->textContent);
     }
 
+    /** @deprecated User get instead. */
     protected function getElement(string $tag): DOMElement
     {
         if (! $result = $this->document->getElementsByTagName($tag)->item(0)) {
@@ -58,12 +67,40 @@ abstract class Response
 
     protected function query(string $expression): DOMNodeList
     {
-        $result = (new DOMXPath($this->document))->query($expression);
+        $xpath  = new DOMXPath($this->document);
+        $result = $xpath->query($expression);
 
         if ($result === false) {
             throw new EppXmlException("DOMXPath query [{$expression}] had no results.");
         }
 
         return $result;
+    }
+
+    /**
+     * Query the document like "epp.result.x".
+     */
+    protected function get(string $query, ?DOMNodeList $context = null): ?DOMElement
+    {
+        if (! $context) {
+            $context = $this->document->childNodes;
+        }
+
+        $query = explode('.', $query);
+
+        foreach ($context as $node) {
+            if (! $node instanceof DOMElement) {
+                continue;
+            }
+            if ($node->localName === $query[0]) {
+                if (count($query) === 1) {
+                    return $node;
+                }
+                array_shift($query);
+                return $this->get(implode('.', $query), $node->childNodes);
+            }
+        }
+
+        return null;
     }
 }

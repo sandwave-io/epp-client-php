@@ -12,11 +12,11 @@ abstract class Request extends Document
     protected $clientTransactionIdentifier;
 
     /** @var array<string, string> */
-    protected $extensions = [];
+    protected $namespaces = [];
 
-    public function addEppExtension(string $name, string $url): void
+    public function addEppNamespace(string $name, string $url): void
     {
-        $this->extensions[$name] = $url;
+        $this->namespaces["xmlns:{$name}"] = $url;
     }
 
     public function getClientTransactionIdentifier(): ?string

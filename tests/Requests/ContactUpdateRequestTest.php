@@ -35,6 +35,8 @@ class ContactUpdateRequestTest extends TestCase
             ],
             true
         );
+        $request->addEppNamespace('domain', 'urn:ietf:params:xml:ns:domain-1.0');
+        $request->addEppNamespace('contact', 'urn:ietf:params:xml:ns:contact-1.0');
 
         $request->setClientTransactionIdentifier('ABC-12345');
 
@@ -69,8 +71,10 @@ class ContactUpdateRequestTest extends TestCase
             ],
             true
         );
+        $request->addEppNamespace('domain', 'urn:ietf:params:xml:ns:domain-1.0');
+        $request->addEppNamespace('contact', 'urn:ietf:params:xml:ns:contact-1.0');
 
-        $request->addEppExtension('sidn-ext-epp', 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0');
+        $request->addEppNamespace('sidn-ext-epp', 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0');
         $request->setClientTransactionIdentifier('ABC-12345');
 
         $xmlString = $request->renderAndAppendChildren()->toString();

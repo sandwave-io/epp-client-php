@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+     xmlns:sidn-ext-epp="http://rxsd.domain-registry.nl/sidn-ext-epp-1.0"
+     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
   <response>
     <result code="1000">
       <msg>Command completed successfully</msg>
     </result>
     <resData>
-      <domain:trnData
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+      <domain:trnData>
         <domain:name>example.com</domain:name>
         <domain:trStatus>pending</domain:trStatus>
         <domain:reID>ClientX</domain:reID>

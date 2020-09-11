@@ -10,6 +10,8 @@ class ContactRequestTransferRequestTest extends TestCase
     public function test_contact_transfer_password_request(): void
     {
         $request = new ContactRequestTransferRequest('sh8013', '2fooBAR');
+        $request->addEppNamespace('domain', 'urn:ietf:params:xml:ns:domain-1.0');
+        $request->addEppNamespace('contact', 'urn:ietf:params:xml:ns:contact-1.0');
 
         $request->setClientTransactionIdentifier('ABC-12345');
 
@@ -20,8 +22,10 @@ class ContactRequestTransferRequestTest extends TestCase
     public function test_contact_transfer_sidn_request(): void
     {
         $request = new ContactRequestTransferRequest('sh8013', '2fooBAR');
+        $request->addEppNamespace('domain', 'urn:ietf:params:xml:ns:domain-1.0');
+        $request->addEppNamespace('contact', 'urn:ietf:params:xml:ns:contact-1.0');
 
-        $request->addEppExtension('sidn-ext-epp', 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0');
+        $request->addEppNamespace('sidn-ext-epp', 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0');
         $request->setClientTransactionIdentifier('ABC-12345');
 
         $xmlString = $request->renderAndAppendChildren()->toString();

@@ -10,6 +10,8 @@ class LoginRequestTest extends TestCase
     public function test_login_request(): void
     {
         $request = new LoginRequest('admin', 'secret');
+        $request->addEppNamespace('domain', 'urn:ietf:params:xml:ns:domain-1.0');
+        $request->addEppNamespace('contact', 'urn:ietf:params:xml:ns:contact-1.0');
 
         $request->setClientTransactionIdentifier('ABC-12345');
 
@@ -20,8 +22,10 @@ class LoginRequestTest extends TestCase
     public function test_login_sidn_request(): void
     {
         $request = new LoginRequest('admin', 'secret');
+        $request->addEppNamespace('domain', 'urn:ietf:params:xml:ns:domain-1.0');
+        $request->addEppNamespace('contact', 'urn:ietf:params:xml:ns:contact-1.0');
 
-        $request->addEppExtension('sidn-ext-epp', 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0');
+        $request->addEppNamespace('sidn-ext-epp', 'http://rxsd.domain-registry.nl/sidn-ext-epp-1.0');
         $request->setClientTransactionIdentifier('ABC-12345');
 
         $xmlString = $request->renderAndAppendChildren()->toString();
