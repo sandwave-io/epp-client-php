@@ -14,7 +14,7 @@
         "ext-curl": "*",
         "ext-dom": "*",
         "ext-libxml": "*",
-        "nesbot/carbon": "^2.39",
+        "nesbot/carbon": "~1.38",
         "psr/log": "^1.1"
     },
     "require-dev": {
