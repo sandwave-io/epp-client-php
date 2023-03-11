@@ -4,7 +4,6 @@ namespace SandwaveIo\EppClient\Tests\Services\Util;
 
 use PHPUnit\Framework\TestCase;
 use SandwaveIo\EppClient\Epp\ConnectionDriver\AbstractConnectionDriver;
-use Webmozart\Assert\Assert;
 
 final class MockConnectionDriver extends AbstractConnectionDriver
 {
@@ -61,8 +60,8 @@ final class MockConnectionDriver extends AbstractConnectionDriver
 
     public function expectRequest(string $requestPath, string $responsePath): MockConnectionDriver
     {
-        Assert::fileExists($requestPath, 'Request path must exist');
-        Assert::fileExists($responsePath, 'Response path must exist');
+        $this->testCase->assertFileExists($requestPath, 'Request path must exist');
+        $this->testCase->assertFileExists($responsePath, 'Response path must exist');
 
         $this->assertions[] = [
             'request_path' => $requestPath,

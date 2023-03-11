@@ -7,7 +7,7 @@ use SandwaveIo\EppClient\Epp\Rfc\Responses\Objects\ResultCode;
 
 class ResultCodeValidTest extends TestCase
 {
-    public function validData(): array
+    public static function validData(): array
     {
         return [
             ['1000', true],

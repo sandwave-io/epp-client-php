@@ -12,7 +12,6 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainName;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Domain\DomainPassword;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
-use Webmozart\Assert\Assert;
 
 class DomainInfoRequest extends Request
 {
@@ -38,12 +37,16 @@ class DomainInfoRequest extends Request
         $this->hostsFilter = $hostsFilter;
         $this->password = $password;
 
-        Assert::inArray($hostsFilter, [
-            DomainInfoRequest::FILTER_ALL,
-            DomainInfoRequest::FILTER_DEL,
-            DomainInfoRequest::FILTER_SUB,
-            DomainInfoRequest::FILTER_NONE,
-        ]);
+        assert(in_array(
+            $hostsFilter,
+            [
+                DomainInfoRequest::FILTER_ALL,
+                DomainInfoRequest::FILTER_DEL,
+                DomainInfoRequest::FILTER_SUB,
+                DomainInfoRequest::FILTER_NONE,
+            ],
+            true
+        ));
     }
 
     protected function renderElements(): DOMElement

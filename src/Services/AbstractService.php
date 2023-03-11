@@ -42,7 +42,6 @@ use SandwaveIo\EppClient\Epp\Rfc\Responses\LoginResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\LogoutResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\Objects\ContactPostalInfo;
 use SandwaveIo\EppClient\Exceptions\ConnectException;
-use Webmozart\Assert\Assert;
 
 abstract class AbstractService
 {
@@ -229,10 +228,10 @@ abstract class AbstractService
         ?bool $doDisclose = null
     ): ContactCreateResponse {
         if ($internationalAddress) {
-            Assert::notNull($internationalAddress->name, 'An address must have a set name when creating a contact.');
+            assert($internationalAddress->name !== null, 'An address must have a set name when creating a contact.');
         }
         if ($localAddress) {
-            Assert::notNull($localAddress->name, 'An address must have a set name when creating a contact.');
+            assert($localAddress->name !== null, 'An address must have a set name when creating a contact.');
         }
 
         $request = new ContactCreateRequest(

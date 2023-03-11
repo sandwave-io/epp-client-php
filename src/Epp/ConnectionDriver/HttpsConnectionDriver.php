@@ -2,10 +2,11 @@
 
 namespace SandwaveIo\EppClient\Epp\ConnectionDriver;
 
+use CurlHandle;
+
 class HttpsConnectionDriver extends HttpConnectionDriver
 {
-    /** @return resource */
-    protected function makeCurlRequest()
+    protected function makeCurlRequest(): CurlHandle
     {
         $curl = parent::makeCurlRequest();
         curl_setopt($curl, CURLOPT_URL, "https://{$this->hostname}");

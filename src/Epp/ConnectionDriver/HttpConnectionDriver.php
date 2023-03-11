@@ -2,6 +2,7 @@
 
 namespace SandwaveIo\EppClient\Epp\ConnectionDriver;
 
+use CurlHandle;
 use SandwaveIo\EppClient\Exceptions\ConnectException;
 
 class HttpConnectionDriver extends AbstractConnectionDriver
@@ -36,13 +37,11 @@ class HttpConnectionDriver extends AbstractConnectionDriver
         return true;
     }
 
-    /** @return resource */
-    protected function makeCurlRequest()
+    protected function makeCurlRequest(): CurlHandle
     {
         $curl = curl_init("http://{$this->hostname}");
-        if ($curl === false) {
-            throw new ConnectException('Cannot create curl request');
-        }
+        assert($curl instanceof CurlHandle, 'Cannot create curl request');
+
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_COOKIE, true);

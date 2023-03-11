@@ -14,7 +14,6 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactOrganization;
 use SandwaveIo\EppClient\Epp\Rfc\Elements\Contact\ContactPostalInfo as ContactPostalInfoElement;
 use SandwaveIo\EppClient\Exceptions\EppXmlException;
 use SandwaveIo\EppClient\Exceptions\InvalidArgumentException;
-use Webmozart\Assert\Assert;
 
 class ContactPostalInfo
 {
@@ -75,7 +74,10 @@ class ContactPostalInfo
         $this->postalCode = $postalCode;
 
         $types = [ContactPostalInfo::TYPE_INTERNATIONALIZED, ContactPostalInfo::TYPE_LOCALIZED];
-        Assert::inArray($type, $types, sprintf('Type must be one of (%s)', implode(', ', $types)));
+        assert(
+            in_array($type, $types, true),
+            sprintf('Type must be one of (%s)', implode(', ', $types))
+        );
         $this->type = $type;
     }
 
@@ -127,7 +129,10 @@ class ContactPostalInfo
     {
         if ($overrideType) {
             $types = [ContactPostalInfo::TYPE_INTERNATIONALIZED, ContactPostalInfo::TYPE_LOCALIZED];
-            Assert::inArray($overrideType, $types, sprintf('Type must be one of (%s)', implode(', ', $types)));
+            assert(
+                in_array($overrideType, $types, true),
+                sprintf('Type must be one of (%s)', implode(', ', $types))
+            );
         }
 
         return ContactPostalInfoElement::render([

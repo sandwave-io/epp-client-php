@@ -25,7 +25,6 @@ use SandwaveIo\EppClient\Epp\Rfc\Elements\Epp;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\Request;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\Objects;
 use SandwaveIo\EppClient\Exceptions\InvalidArgumentException;
-use Webmozart\Assert\Assert;
 
 class ContactUpdateRequest extends Request
 {
@@ -113,11 +112,11 @@ class ContactUpdateRequest extends Request
                 ContactUpdateRequest::DISCLOSE_EMAIL,
             ];
             foreach ($updateDisclosure as $disclose) {
-                Assert::inArray(
+                assert(in_array(
                     $disclose,
                     $updateDisclosureElements,
-                    sprintf('Disclosed elements must be one of (%s)', implode(', ', $updateDisclosureElements))
-                );
+                    true
+                ), sprintf('Disclosed elements must be one of (%s)', implode(', ', $updateDisclosureElements)));
             }
         }
     }
@@ -188,7 +187,6 @@ class ContactUpdateRequest extends Request
     private function renderDisclosureElement(string $disclosure): DOMElement
     {
         switch ($disclosure) {
-
             case ContactUpdateRequest::DISCLOSE_NAME_INT:
                 return ContactName::render([], null, ['type' => 'int']);
 

@@ -16,7 +16,6 @@ use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainInfoResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainQueryTransferResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\DomainRenewResponse;
 use SandwaveIo\EppClient\Epp\Rfc\Responses\Objects\ContactPostalInfo;
-use Webmozart\Assert\Assert;
 
 final class SidnService extends AbstractService
 {
@@ -52,10 +51,10 @@ final class SidnService extends AbstractService
         ?bool $doDisclose = null
     ): ContactCreateResponse {
         if ($internationalAddress) {
-            Assert::notNull($internationalAddress->name, 'An address must have a set name when creating a contact.');
+            assert($internationalAddress->name !== null, 'An address must have a set name when creating a contact.');
         }
         if ($localAddress) {
-            Assert::notNull($localAddress->name, 'An address must have a set name when creating a contact.');
+            assert($localAddress->name !== null, 'An address must have a set name when creating a contact.');
         }
 
         $request = new SidnContactCreateRequest(

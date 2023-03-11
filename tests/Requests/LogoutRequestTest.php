@@ -2,7 +2,7 @@
 
 namespace SandwaveIo\EppClient\Tests\Requests;
 
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 use SandwaveIo\EppClient\Epp\Rfc\Requests\LogoutRequest;
 
 class LogoutRequestTest extends TestCase
